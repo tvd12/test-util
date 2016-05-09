@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/tavandung12/test-util.svg?branch=master)](https://travis-ci.org/tavandung12/test-util)
+[![Build Status](https://travis-ci.org/tvd12/test-util.svg?branch=master)](https://travis-ci.org/tvd12/test-util)
 [![Dependency Status](https://www.versioneye.com/user/projects/5717990efcd19a00415b1f61/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5717990efcd19a00415b1f61)
-[![Coverage Status](https://coveralls.io/repos/github/tavandung12/test-util/badge.svg?branch=master)](https://coveralls.io/github/tavandung12/test-util?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/tvd12/test-util/badge.svg?branch=master)](https://coveralls.io/github/tvd12/test-util?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.tvd12/test-util/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.tvd12/test-util)
 [![Javadoc](https://javadoc-emblem.rhcloud.com/doc/com.tvd12/test-util/badge.svg)](http://www.javadoc.io/doc/com.tvd12/test-util)
 
