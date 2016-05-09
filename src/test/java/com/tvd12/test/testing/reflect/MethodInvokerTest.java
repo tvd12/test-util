@@ -1,10 +1,10 @@
 package com.tvd12.test.testing.reflect;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import com.tvd12.test.reflect.MethodInvoker;
 
-import static org.junit.Assert.*;
+import static org.testng.Assert.*;
 
 public class MethodInvokerTest {
 

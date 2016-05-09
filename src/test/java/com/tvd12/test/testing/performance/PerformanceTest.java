@@ -1,6 +1,6 @@
 package com.tvd12.test.testing.performance;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import com.tvd12.test.performance.Performance;
 import com.tvd12.test.performance.Script;

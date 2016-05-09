@@ -4,41 +4,44 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-        <groupId>com.jcabi</groupId>
-        <artifactId>parent</artifactId>
-        <version>0.43</version>
-    </parent>
-    <groupId>com.tvd12</groupId>
+		<groupId>com.jcabi</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.43</version>
+	</parent>
+	<groupId>com.tvd12</groupId>
 	<artifactId>test-util</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	
+
 	<name>test-util</name>
 	<url>http://www.tvd12.com/java/projects/test-util</url>
 	<description>
 		A project support for testing
 	</description>
-	
+
 	<organization>
 		<name>Young Monkeys</name>
 		<url>http://www.tvd12.com</url>
 	</organization>
-	
+
 	<properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss</maven.build.timestamp.format>
-    </properties>
-    
-    <licenses>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss</maven.build.timestamp.format>
+		<slf4j.version>1.7.21</slf4j.version>
+		<mockito.version>1.9.5</mockito.version>
+		<testng.version>6.8.7</testng.version>
+	</properties>
+
+	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
+
 	<developers>
 		<developer>
 			<name>Ta Van Dung</name>
@@ -47,29 +50,54 @@
 			<organizationUrl>http://www.tvd12.com</organizationUrl>
 		</developer>
 	</developers>
-	
+
 	<scm>
 		<connection>scm:git:git@github.com:tavandung12/test-util.git</connection>
 		<developerConnection>scm:git:git@github.com:tavandung12/test-util.git</developerConnection>
 		<url>https://github.com/tavandung12/test-util</url>
 	</scm>
-	
+
 	<issueManagement>
 		<system>Github</system>
 		<url>https://github.com/tavandung12/test-util/issues</url>
 	</issueManagement>
-	
+
 	<ciManagement>
 		<system>travis</system>
 		<url>https://travis-ci.org/tavandung12/test-util</url>
 	</ciManagement>
-	
+
 	<distributionManagement>
 		<site>
 			<id>tvd12</id>
 			<url>http://www.tvd12.com/</url>
 		</site>
 	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+			<exclusions>
+				<!-- No thank you -->
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -125,10 +153,25 @@
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
+					<execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals><goal>report</goal></goals>
+                    </execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- <redirectTestOutputToFile>true</redirectTestOutputToFile> -->
+					<suiteXmlFiles>
+						<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin>
 		</plugins>
-	<pluginManagement>
+		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->

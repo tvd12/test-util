@@ -2,7 +2,7 @@ package com.tvd12.test.testing.performance;
 
 import java.lang.reflect.Method;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import com.tvd12.test.performance.MethodPerformance;
 

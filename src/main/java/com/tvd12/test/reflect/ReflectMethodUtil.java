@@ -1,9 +1,10 @@
 package com.tvd12.test.reflect;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class ReflectMethodUtil {
+public final class ReflectMethodUtil {
     
     //prevent new instance
     private ReflectMethodUtil() {}
@@ -23,7 +24,7 @@ public class ReflectMethodUtil {
             Class<?> clazz, Class<?>... parameterTypes) {
         Method method = null;
         Class<?> superClass = clazz;
-        while(method == null && superClass != null) {
+        while(method == null) {
             try {
                 method = superClass.getDeclaredMethod(methodName, parameterTypes);
             } catch (NoSuchMethodException | SecurityException e) {
@@ -54,6 +55,25 @@ public class ReflectMethodUtil {
             Object object, Object... params) {
         Class<?>[] types = getParameterTypes(params);
         return getMethod(methodName, object.getClass(), types);
+    }
+    
+    /**
+     * Get constructor of class
+     * 
+     * @param clazz declaring class
+     * @param parameterTypes array of parameter types
+     * @return a constructor
+     */
+    public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... parameterTypes) {
+        try {
+            Constructor<?> result = clazz.getDeclaredConstructor(parameterTypes);
+            result.setAccessible(true);
+            return result;
+        } catch (NoSuchMethodException | SecurityException e) {
+            throw new IllegalStateException("Has no contructor with " +
+                    ParameterTypeUtil.toString(parameterTypes) + 
+                    " parameters on class " + clazz, e);
+        }
     }
     
     /**
@@ -136,4 +156,20 @@ public class ReflectMethodUtil {
         return invokeMethod(method, null, params);
     }
     
+    /**
+     * Invoke constructor on class
+     * 
+     * @param clazz declaring class
+     * @param params array of parameters
+     * @return a object
+     */
+    public static Object invokeConstructor(Class<?> clazz, Object... params) {
+        try {
+            return getConstructor(clazz, getParameterTypes(params)).newInstance(params);
+        } catch (InstantiationException 
+                | IllegalAccessException 
+                | InvocationTargetException e) {
+            throw new IllegalStateException("Can not invoke constructor on class " + clazz, e);
+        }
+    }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="TestUtil">
+
+    <test name="Performance">
+        <packages>
+            <package name="com.tvd12.test.testing.performance"/>
+        </packages>
+    </test>
+    
+    <test name="Reflect">
+    	<packages>
+    		<package name="com.tvd12.test.testing.reflect" />
+    	</packages>
+    </test>
+    
+    <test name="Base">
+        <packages>
+            <package name="com.tvd12.test.testing.base"/>
+        </packages>
+    </test>
+    
+</suite>
