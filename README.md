@@ -61,7 +61,7 @@ This project support for:
 
 Because sometimes we want to call private, protected, package access and public method,
 we need test performance to our script and export result to file
-so, we need create a library to support theme
+so, we need create a library to support them
 
 #Installation
 
@@ -69,7 +69,7 @@ so, we need create a library to support theme
 	<dependency>
 		<groupId>com.tvd12</groupId>
 		<artifactId>test-util</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.0</version>
 	</dependency>
 ```
 #API Reference
