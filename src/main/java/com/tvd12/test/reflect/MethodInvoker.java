@@ -63,7 +63,7 @@ public class MethodInvoker {
      * append parameter
      * 
      * @param value parameter value
-     * @return
+     * @return this pointer
      */
     @SuppressWarnings("unchecked")
     public MethodInvoker param(Object value) {
@@ -98,6 +98,7 @@ public class MethodInvoker {
     /**
      * invoke method and cast returned result with type
      * 
+     * @param <T> the class type
      * @param type casting type
      * @return the value returned by the invoked method
      */

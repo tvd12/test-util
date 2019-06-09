@@ -27,7 +27,7 @@ public class ParameterTypeUtil {
      * Build list of parameters types to string
      * 
      * @param parameterTypes list of parameter types
-     * @return
+     * @return the chain of parameterTypes
      */
     public static String toString(List<Class<?>> parameterTypes) {
         if(parameterTypes == null)

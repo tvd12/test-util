@@ -1,9 +1,9 @@
 package com.tvd12.test.base;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.tvd12.test.reflect.StackTraceUtil;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class QuickLog {
      * 
      * @param msg message
      */
-    public void INFO(String msg) {
+    public void info(String msg) {
     		StringBuilder builder = messageBuilder(LEVEL_INFO, msg, null);
         System.out.println(builder);
     }
@@ -34,8 +34,8 @@ public class QuickLog {
      * @param msg message
      * @param e exception
      */
-    public void INFO(String msg, Throwable e) {
-    	StringBuilder builder = messageBuilder(LEVEL_INFO, msg, e);
+    public void info(String msg, Throwable e) {
+    		StringBuilder builder = messageBuilder(LEVEL_INFO, msg, e);
         System.out.println(builder);
     }
     
@@ -44,7 +44,7 @@ public class QuickLog {
      * 
      * @param msg message
      */
-    public void ERROR(String msg) {
+    public void error(String msg) {
     		StringBuilder builder = messageBuilder(LEVEL_ERROR, msg, null);
         System.out.println(builder);
     }
@@ -55,21 +55,22 @@ public class QuickLog {
      * @param msg message
      * @param e exception
      */
-    public void ERROR(String msg, Throwable e) {
+    public void error(String msg, Throwable e) {
     		StringBuilder builder = messageBuilder(LEVEL_ERROR, msg, e);
         System.out.println(builder);
     }
     
     private StringBuilder messageBuilder(String level, String message, Throwable e) {
     		Date now = new Date();
+    		Thread thread = Thread.currentThread();
     		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
     		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss,SSS");
     		StringBuilder builder = new StringBuilder()
     				.append(dateFormat.format(now)).append(" | ")
     				.append(timeFormat.format(now)).append(" | ")
     				.append(level).append(" | ")
-    				.append(Thread.currentThread().getName()).append(" | ")
-    				.append(getClass().getSimpleName()).append(" |\t| ")
+    				.append(thread.getName()).append(" | ")
+    				.append(getCallerInfo(thread)).append(" |\t| ")
     				.append(message);
     		if(e != null)
     			builder.append("\n").append(getStackTrace(e));
@@ -77,12 +78,12 @@ public class QuickLog {
     }
     
     private String getStackTrace(Throwable throwable) {
-        final StringWriter sw = new StringWriter();
-        final PrintWriter pw = new PrintWriter(sw, true);
-        throwable.printStackTrace(pw);
-        StringBuffer buffer = sw.getBuffer();
-        String string = buffer.toString();
-        return string;
-   }
+        return StackTraceUtil.stackTraceToString(throwable);
+    }
+    
+    private String getCallerInfo(Thread thread) {
+    		StackTraceElement[] stackTrace = thread.getStackTrace();
+    		return StackTraceUtil.getCallerInfo(stackTrace, 4);
+    }
     
 }

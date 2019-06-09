@@ -26,7 +26,7 @@ public class BaseTest extends QuickLog {
      */
     @BeforeClass
     public void beforeClass() {
-        INFO("===== Start test " + getClass().getSimpleName() + " =====");
+        info("===== Start test " + getClass().getSimpleName() + " =====");
         time = System.currentTimeMillis();
     }
     
@@ -37,7 +37,7 @@ public class BaseTest extends QuickLog {
     @AfterClass
     public void afterClass() {
         time = System.currentTimeMillis() - time;
-        INFO("===== Finish test " + getClass().getSimpleName() + ", Time elapsed = " + time + " =====");
+        info("===== Finish test " + getClass().getSimpleName() + ", Time elapsed = " + time + " =====");
     }
     
     /**

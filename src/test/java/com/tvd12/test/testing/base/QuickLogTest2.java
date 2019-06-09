@@ -2,24 +2,22 @@ package com.tvd12.test.testing.base;
 
 import org.testng.annotations.Test;
 
-import com.tvd12.test.base.QuickLog;
+import com.tvd12.test.base.BaseTest;
 
-public class QuickLogTest {
+public class QuickLogTest2 extends BaseTest {
 
     @Test
     public void test() {
-        QuickLog log = new QuickLog();
-        
-        log.error("");
+        error("");
         try {
         		a();
         }
         catch (Exception e) {
-        		log.error("how?", e);
+        		error("how?", e);
 		}
         
-        log.info("");
-        log.info("", new Exception());
+        info("");
+        info("", new Exception());
         
     }
     
