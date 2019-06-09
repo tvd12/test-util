@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.tvd12</groupId>
 	<artifactId>test-util</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>test-util</name>
@@ -29,9 +29,8 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss</maven.build.timestamp.format>
-		<slf4j.version>1.7.21</slf4j.version>
-		<mockito.version>1.9.5</mockito.version>
-		<testng.version>6.8.7</testng.version>
+		<mockito.version>1.10.19</mockito.version>
+		<testng.version>6.14.3</testng.version>
 	</properties>
 
 	<licenses>
@@ -75,11 +74,6 @@
 	</distributionManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>

@@ -9,18 +9,36 @@ public class QuickLogTest {
     @Test
     public void test() {
         QuickLog log = new QuickLog();
-        log.DEBUG("");
-        log.DEBUG("", null);
         
         log.ERROR("");
-        log.ERROR("", null);
+        try {
+        		a();
+        }
+        catch (Exception e) {
+        		log.ERROR("how?", e);
+		}
         
         log.INFO("");
-        log.INFO("", null);
+        log.INFO("", new Exception());
         
-        log.WARN("");
-        log.WARN("", null);
-        
+    }
+    
+    public void a() {
+    		try {
+    			b();
+    		}
+    		catch (Exception e) {
+    			throw new IllegalStateException("can be", e);
+		}
+    }
+    
+    public void b() {
+    		try {
+    			throw new IllegalArgumentException("no one");
+    		}
+    		catch (Exception e) {
+    			throw new RuntimeException("error runtime", e);
+		}
     }
     
 }

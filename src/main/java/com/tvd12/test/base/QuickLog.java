@@ -1,7 +1,9 @@
 package com.tvd12.test.base;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 
@@ -13,20 +15,17 @@ import org.slf4j.LoggerFactory;
  */
 public class QuickLog {
 
-    /**
-     * @return logger
-     */
-    public Logger LOGGER() {
-        return LoggerFactory.getLogger(getClass());
-    }
-    
+	private static final String LEVEL_INFO = "INFO";
+	private static final String LEVEL_ERROR = "ERROR";
+	
     /**
      * Log a message at the INFO level according to the specified format and arguments.
      * 
      * @param msg message
      */
     public void INFO(String msg) {
-        LOGGER().info(msg);
+    		StringBuilder builder = messageBuilder(LEVEL_INFO, msg, null);
+        System.out.println(builder);
     }
     
     /**
@@ -36,45 +35,8 @@ public class QuickLog {
      * @param e exception
      */
     public void INFO(String msg, Throwable e) {
-        LOGGER().info(msg, e);
-    }
-    
-    /**
-     * Log a message at the DEBUG level according to the specified format and arguments.
-     * 
-     * @param msg message
-     */
-    public void DEBUG(String msg) {
-        LOGGER().debug(msg);
-    }
-    
-    /**
-     * Log an exception (throwable) at the DEBUG level with an accompanying message.
-     * 
-     * @param msg message
-     * @param e exception
-     */
-    public void DEBUG(String msg, Throwable e) {
-        LOGGER().debug(msg, e);
-    }
-    
-    /**
-     * Log a message at the WARN level according to the specified format and arguments.
-     * 
-     * @param msg message
-     */
-    public void WARN(String msg) {
-        LOGGER().warn(msg);
-    }
-    
-    /**
-     * Log an exception (throwable) at the WARN level with an accompanying message.
-     * 
-     * @param msg message
-     * @param e exception
-     */
-    public void WARN(String msg, Throwable e) {
-        LOGGER().warn(msg, e);
+    	StringBuilder builder = messageBuilder(LEVEL_INFO, msg, e);
+        System.out.println(builder);
     }
     
     /**
@@ -83,7 +45,8 @@ public class QuickLog {
      * @param msg message
      */
     public void ERROR(String msg) {
-        LOGGER().error(msg);
+    		StringBuilder builder = messageBuilder(LEVEL_ERROR, msg, null);
+        System.out.println(builder);
     }
     
     /**
@@ -93,7 +56,33 @@ public class QuickLog {
      * @param e exception
      */
     public void ERROR(String msg, Throwable e) {
-        LOGGER().error(msg, e);
+    		StringBuilder builder = messageBuilder(LEVEL_ERROR, msg, e);
+        System.out.println(builder);
     }
+    
+    private StringBuilder messageBuilder(String level, String message, Throwable e) {
+    		Date now = new Date();
+    		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+    		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss,SSS");
+    		StringBuilder builder = new StringBuilder()
+    				.append(dateFormat.format(now)).append(" | ")
+    				.append(timeFormat.format(now)).append(" | ")
+    				.append(level).append(" | ")
+    				.append(Thread.currentThread().getName()).append(" | ")
+    				.append(getClass().getSimpleName()).append(" |\t| ")
+    				.append(message);
+    		if(e != null)
+    			builder.append("\n").append(getStackTrace(e));
+    		return builder;
+    }
+    
+    private String getStackTrace(Throwable throwable) {
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw, true);
+        throwable.printStackTrace(pw);
+        StringBuffer buffer = sw.getBuffer();
+        String string = buffer.toString();
+        return string;
+   }
     
 }
