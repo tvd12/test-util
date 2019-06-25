@@ -2,6 +2,7 @@ package com.tvd12.test.reflect;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MethodBuilder {
@@ -49,11 +50,22 @@ public class MethodBuilder {
     /**
      * Add argument
      * 
-     * @param argument argument
+     * @param argument the argument
      * @return this pointer
      */
     public MethodBuilder argument(Class<?> argument) {
         this.arguments.add(argument);
+        return this;
+    }
+    
+    /**
+     * Add arguments
+     * 
+     * @param arguments the arguments
+     * @return this pointer
+     */
+    public MethodBuilder arguments(Class<?>... arguments) {
+        this.arguments.addAll(Arrays.asList(arguments));
         return this;
     }
     

@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tvd12.test.util.Pair;
+
 /**
  * 
  * A builder class support to build a method invoker
@@ -12,11 +14,8 @@ import java.util.List;
  * @author tavandung12
  *
  */
+@SuppressWarnings("rawtypes")
 public class MethodInvoker {
-
-    //list of parameters
-    @SuppressWarnings("rawtypes")
-    private List params;
 
     //object invoke method on this object 
     private Object object;
@@ -26,6 +25,9 @@ public class MethodInvoker {
     
     //method name
     private String methodName;
+    
+    //list of parameters
+	private List<Pair<Class, Object>> params;
     
     //constructor
     public MethodInvoker() {
@@ -62,12 +64,36 @@ public class MethodInvoker {
     /**
      * append parameter
      * 
-     * @param value parameter value
+     * @param value the parameter value
      * @return this pointer
      */
-    @SuppressWarnings("unchecked")
     public MethodInvoker param(Object value) {
-        this.params.add(value);
+    		Class valueType = value.getClass();
+        this.params.add(new Pair<>(valueType, value));
+        return this;
+    }
+    
+    /**
+     * append parameters
+     * 
+     * @param values the parameter values
+     * @return this pointer
+     */
+    public MethodInvoker params(Object... values) {
+    		for(Object value : values)
+    			param(value);
+    		return this;
+    }
+    
+    /**
+     * append parameter
+     * 
+     * @param paramType the parameter type
+     * @param value the parameter value
+     * @return this pointer
+     */
+    public MethodInvoker param(Class<?> paramType, Object value) {
+        this.params.add(new Pair<>((Class)paramType, value));
         return this;
     }
     
@@ -88,22 +114,32 @@ public class MethodInvoker {
      * @return the value returned by the invoked method
      */
     public Object invoke() {
-        Object[] paramArray = params.toArray();
-        if(method == null) 
-            method = ReflectMethodUtil
-                .getMethod(methodName, object, paramArray);
+    		int paramCount = params.size();
+    		Object[] paramArray = new Object[paramCount];
+    		Class<?>[] paramTypeArray = new Class<?>[paramCount];
+    		for(int i = 0 ; i < paramCount ; i++) {
+    			Pair<Class, Object> param = params.get(i);
+    			paramTypeArray[i] = param.getKey();
+    			paramArray[i] = param.getValue();
+    		}
+        if(method == null) {
+        		Class<?> objectType = object.getClass();
+        		method = ReflectMethodUtil
+                .getMethod(methodName, objectType, paramTypeArray);
+        }
         return ReflectMethodUtil.invokeMethod(method, object, paramArray);
     }
     
     /**
      * invoke method and cast returned result with type
      * 
-     * @param <T> the class type
+     * @param <T> the output type
      * @param type casting type
      * @return the value returned by the invoked method
      */
     public <T> T invoke(Class<T> type) {
-        return type.cast(invoke());
+    		Object answer = invoke();
+        return type.cast(answer);
     }
     
 }

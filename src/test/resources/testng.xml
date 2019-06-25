@@ -20,4 +20,10 @@
         </packages>
     </test>
     
+    <test name="Util">
+        <packages>
+            <package name="com.tvd12.test.testing.util"/>
+        </packages>
+    </test>
+    
 </suite>

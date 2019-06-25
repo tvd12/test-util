@@ -17,12 +17,13 @@ public class MethodBuilderTest extends BaseTest {
                 .clazz(ClassA.class)
                 .method("setName")
                 .argument(String.class)
+                .arguments(String.class)
                 .build();
         assertEquals(method.getName(), "setName");
     }
     
     public static class ClassA {
-        public void setName(String name) {
+        public void setName(String name, String value) {
             
         }
     }
