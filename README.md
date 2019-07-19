@@ -2,15 +2,15 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/5717990efcd19a00415b1f61/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5717990efcd19a00415b1f61)
 [![Coverage Status](https://coveralls.io/repos/github/tvd12/test-util/badge.svg?branch=master)](https://coveralls.io/github/tvd12/test-util?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.tvd12/test-util/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.tvd12/test-util)
-[![Javadoc](https://javadoc-emblem.rhcloud.com/doc/com.tvd12/test-util/badge.svg)](http://www.javadoc.io/doc/com.tvd12/test-util)
+[![Javadocs](https://www.javadoc.io/badge/com.tvd12/test-util.svg)](https://www.javadoc.io/doc/com.tvd12/test-util)
 
-#Synopsis
+# Synopsis
 
 This project support for: 
 - testing private, protected, package access and public method
 - testing script performance
 
-#Code Example
+# Code Example
 
 **1. Get method by name**
 
@@ -57,13 +57,14 @@ This project support for:
             .test(() -> {System.out.println("Hello World");})
             .getTime();
 ```
-#Motivation
+
+# Motivation
 
 Because sometimes we want to call private, protected, package access and public method,
 we need test performance to our script and export result to file
 so, we need create a library to support them
 
-#Installation
+# Installation
 
 ```xml
 	<dependency>
@@ -72,19 +73,19 @@ so, we need create a library to support them
 		<version>1.0.3</version>
 	</dependency>
 ```
-#API Reference
+# API Reference
 
 http://www.javadoc.io/doc/com.tvd12/test-util
 
-#Tests
+# Tests
 
 mvn test
 
-#Contributors
+# Contributors
 
 None
 
-#License
+# License
 
 - Apache License, Version 2.0
 	
