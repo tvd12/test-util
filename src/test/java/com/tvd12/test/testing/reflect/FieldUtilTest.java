@@ -64,6 +64,50 @@ public class FieldUtilTest extends BaseTest {
 		FieldUtil.setFieldValue(new B(), "a", "");
 	}
 	
+	@Test
+	public void test4() {
+		String key = "key";
+		String fieldValue = FieldUtil.getStaticFieldValue(A1.class, "key", key);
+		assert fieldValue == key;
+		assert key == FieldUtil.getStaticFieldValue(A1.class, "key");
+		FieldUtil.setStaticFieldValue(A1.class, "key", key);
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test5() {
+		FieldUtil.getStaticFieldValue(A1.class, "no way");
+	}
+	
+	@Test(expectedExceptions = IllegalStateException.class)
+	public void test6() {
+		FieldUtil.getStaticFieldValue(A1.class, "version", 10);
+		FieldUtil.getStaticFieldValue(A1.class, "version", 10);
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test7() {
+		FieldUtil.setStaticFieldValue(A1.class, "no way", "value");
+	}
+	
+	@Test(expectedExceptions = IllegalStateException.class)
+	public void test8() {
+		FieldUtil.setStaticFieldValue(A1.class, "value", "value");
+	}
+	
+	@Test
+	public void test9() {
+		FieldUtil.getStaticFieldValue(A1.class, "hello", "value").equals("world");
+		assert FieldUtil.getStaticFieldValue(A1.class, "see") == null;
+	}
+	
+	public static class A1 {
+		public static Object key;
+		public static final String value = new String();
+		public static String version;
+		public static String hello = "world";
+		public static String see;
+	}
+	
 	public static class A {
 		private List<String> a;
 		private List<String> b = new ArrayList<>();
