@@ -70,7 +70,7 @@ so, we need create a library to support them
 	<dependency>
 		<groupId>com.tvd12</groupId>
 		<artifactId>test-util</artifactId>
-		<version>1.0.3</version>
+		<version>1.0.5</version>
 	</dependency>
 ```
 # API Reference
