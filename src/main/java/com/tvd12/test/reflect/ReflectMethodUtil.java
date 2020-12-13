@@ -70,7 +70,7 @@ public final class ReflectMethodUtil {
             result.setAccessible(true);
             return result;
         } catch (NoSuchMethodException | SecurityException e) {
-            throw new IllegalStateException("Has no contructor with " +
+            throw new IllegalStateException("Has no constructor with " +
                     ParameterTypeUtil.toString(parameterTypes) + 
                     " parameters on class " + clazz, e);
         }
