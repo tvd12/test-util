@@ -1,0 +1,111 @@
+package com.tvd12.test.assertion;
+
+import java.util.concurrent.Future;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+public class AssertThat {
+
+	private Object actual;
+	private AssertSupplier actualSupplier;
+	
+	public AssertThat(Object actual) {
+		this.actual = actual;
+	}
+	
+	public AssertThat(AssertSupplier actualSupplier) {
+		this.actualSupplier = actualSupplier;
+	}
+	
+	public boolean test(Predicate<Object> predicate) {
+		try {
+			actual = getActualValue();
+		}
+		catch (Throwable e) {
+			throw new AssertionError("test fails due to exception: " + e);
+		}
+		if(!predicate.test(actual))
+			throw new AssertionError("test fails");
+		return true;
+	}
+	
+	public boolean isEqualsType(Class<?> expectedType) {
+		try {
+			actual = getActualValue();
+		}
+		catch (Throwable e) {
+			throw new AssertionError("expected: " + expectedType.getName() + " but was exception: " + e);
+		}
+		return Asserts.assertEqualsType(expectedType, actual);
+	}
+	
+	public boolean isEqualsTo(Object expected) {
+		return isEqualsTo(expected, true);
+	}
+	
+	public boolean isEqualsTo(Object expected, boolean mustEqualsType) {
+		try {
+			actual = getActualValue();
+		}
+		catch (Throwable e) {
+			throw new AssertionError("expected: " + expected + " but was exception: " + e);
+		}
+		return Asserts.assertEquals(expected, actual, mustEqualsType);
+	}
+	
+	public boolean isEqualsTo(AssertSupplier expectedSupplier) {
+		Object expected = null;
+		try {
+			expected = expectedSupplier.apply();
+		}
+		catch (Throwable e) {
+			throw new IllegalArgumentException(e);
+		}
+		if(actualSupplier != null) {
+			try {
+				actual = getActualValue();
+			}
+			catch (Throwable e) {
+				throw new AssertionError("expected: " + expected + " but was exception: " + e);
+			}
+		}
+		return Asserts.assertEquals(expected, actual);
+	}
+	
+	public boolean willThrows(Class<?> expectedExceptionType) {
+		return acceptException(e -> {
+			if(e.getClass() != expectedExceptionType)
+				throw new AssertionError("expected throws: " + expectedExceptionType.getName() + " but was: " + e.getClass().getName());
+		});
+	}
+	
+	public boolean acceptException(Consumer<Throwable> exceptionConsumer) {
+		return testException(t -> {
+			exceptionConsumer.accept(t);
+			return true;
+		});
+	}
+	
+	public boolean testException(Predicate<Throwable> exceptionPredicate) {
+		if(actualSupplier == null)
+			throw new AssertionError("there is no Exception to throw");
+		try {
+			actualSupplier.apply();
+			throw new AssertionError("there is no Exception to throw");
+		}
+		catch (Throwable e) {
+			if(!exceptionPredicate.test(e))
+				throw new AssertionError("fails when test exception: " + e);
+			return true;
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private Object getActualValue() throws Throwable {
+		Object answer = actualSupplier != null ? actualSupplier.apply() : actual;
+		if(answer instanceof Future)
+			answer = ((Future)answer).get();
+		return answer;
+	}
+	
+}

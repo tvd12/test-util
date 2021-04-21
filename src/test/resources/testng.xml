@@ -2,6 +2,12 @@
 
 <suite name="TestUtil">
 
+	<test name="Assertion">
+        <packages>
+            <package name="com.tvd12.test.testing.assertion"/>
+        </packages>
+    </test>
+
     <test name="Performance">
         <packages>
             <package name="com.tvd12.test.testing.performance"/>
