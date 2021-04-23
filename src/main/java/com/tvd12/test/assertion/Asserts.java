@@ -172,7 +172,7 @@ public final class Asserts {
 			throw new AssertionError("expected (not map): " + expected + " but was (map): " + actual);
 		}
 		if(containsEqualsMethod(expectedType) || containsEqualsMethod(actualType)) {
-			throw new AssertionError("expected: " + expectedType.getName() + " but was: null");
+			throw new AssertionError("expected: " + expected + " but was: " + actual);
 		}
 		try {
 			return assertEqualsObjects(expected, actual, mustEqualsType);
