@@ -10,6 +10,40 @@ import com.tvd12.test.base.BaseTest;
 public class AssertThatTest extends BaseTest {
 	
 	@Test
+	public void isNullSuccess() {
+		Asserts.assertThat(null).isNull();
+	}
+	
+	@Test(expectedExceptions = AssertionError.class)
+	public void isNullFailDueToNotNull() {
+		Asserts.assertThat(1).isNull();
+	}
+	
+	@Test(expectedExceptions = AssertionError.class)
+	public void isNullFailDueToException() {
+		Asserts.assertThat(() -> {
+			throw new Exception("just test");
+		}).isNull();
+	}
+	
+	@Test
+	public void isNotNullSuccess() {
+		Asserts.assertThat(1).isNotNull();
+	}
+	
+	@Test(expectedExceptions = AssertionError.class)
+	public void isNotNullFailDueToNull() {
+		Asserts.assertThat(null).isNotNull();
+	}
+	
+	@Test(expectedExceptions = AssertionError.class)
+	public void isNotNullFailDueToException() {
+		Asserts.assertThat(() -> {
+			throw new Exception("just test");
+		}).isNotNull();
+	}
+	
+	@Test
 	public void testSuccessWithFuture() {
 		CompletableFuture<Integer> future = new CompletableFuture<>();
 		future.complete(1);

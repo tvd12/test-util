@@ -15,6 +15,18 @@ public final class Asserts {
 
 	private Asserts() {}
 	
+	public static boolean assertNull(Object actual) {
+		if(actual != null)
+			throw new AssertionError("expected: null but was: " + actual);
+		return true;
+	}
+	
+	public static boolean assertNotNull(Object actual) {
+		if(actual == null)
+			throw new AssertionError("expected: not null but was: null");
+		return true;
+	}
+	
 	public static AssertThat assertThat(Object actual) {
 		return new AssertThat(actual);
 	}

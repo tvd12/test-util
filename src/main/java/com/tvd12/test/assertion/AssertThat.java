@@ -17,6 +17,26 @@ public class AssertThat {
 		this.actualSupplier = actualSupplier;
 	}
 	
+	public boolean isNull() {
+		try {
+			actual = getActualValue();
+		}
+		catch (Throwable e) {
+			throw new AssertionError("expected: null but was exception: " + e);
+		}
+		return Asserts.assertNull(actual);
+	}
+	
+	public boolean isNotNull() {
+		try {
+			actual = getActualValue();
+		}
+		catch (Throwable e) {
+			throw new AssertionError("expected: not null but was exception: " + e);
+		}
+		return Asserts.assertNotNull(actual);
+	}
+	
 	public boolean test(Predicate<Object> predicate) {
 		try {
 			actual = getActualValue();
