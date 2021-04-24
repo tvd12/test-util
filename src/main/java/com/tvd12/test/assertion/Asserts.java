@@ -27,12 +27,12 @@ public final class Asserts {
 		return true;
 	}
 	
-	public static AssertThat assertThat(Object actual) {
-		return new AssertThat(actual);
+	public static <T> AssertThat<T> assertThat(T actual) {
+		return new AssertThat<>(actual);
 	}
 	
-	public static AssertThat assertThat(AssertSupplier actualSuppler) {
-		return new AssertThat(actualSuppler);
+	public static <T> AssertThat<T> assertThat(AssertSupplier<T> actualSuppler) {
+		return new AssertThat<>(actualSuppler);
 	}
 	
 	public static Throwable assertThrows(AssertApplier func) {

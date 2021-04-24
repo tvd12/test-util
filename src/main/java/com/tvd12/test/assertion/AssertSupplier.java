@@ -1,7 +1,7 @@
 package com.tvd12.test.assertion;
 
-public interface AssertSupplier {
+public interface AssertSupplier<T> {
 
-	Object apply() throws Throwable;
+	T apply() throws Throwable;
 	
 }

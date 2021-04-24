@@ -4,16 +4,16 @@ import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class AssertThat {
+public class AssertThat<T> {
 
-	private Object actual;
-	private AssertSupplier actualSupplier;
+	private T actual;
+	private AssertSupplier<T> actualSupplier;
 	
-	public AssertThat(Object actual) {
+	public AssertThat(T actual) {
 		this.actual = actual;
 	}
 	
-	public AssertThat(AssertSupplier actualSupplier) {
+	public AssertThat(AssertSupplier<T> actualSupplier) {
 		this.actualSupplier = actualSupplier;
 	}
 	
@@ -37,7 +37,7 @@ public class AssertThat {
 		return Asserts.assertNotNull(actual);
 	}
 	
-	public boolean test(Predicate<Object> predicate) {
+	public boolean test(Predicate<T> predicate) {
 		try {
 			actual = getActualValue();
 		}
@@ -73,7 +73,7 @@ public class AssertThat {
 		return Asserts.assertEquals(expected, actual, mustEqualsType);
 	}
 	
-	public boolean isEqualsTo(AssertSupplier expectedSupplier) {
+	public boolean isEqualsTo(AssertSupplier<T> expectedSupplier) {
 		Object expected = null;
 		try {
 			expected = expectedSupplier.apply();
@@ -120,11 +120,11 @@ public class AssertThat {
 		}
 	}
 	
-	@SuppressWarnings("rawtypes")
-	private Object getActualValue() throws Throwable {
-		Object answer = actualSupplier != null ? actualSupplier.apply() : actual;
+	@SuppressWarnings("unchecked")
+	private T getActualValue() throws Throwable {
+		T answer = actualSupplier != null ? actualSupplier.apply() : actual;
 		if(answer instanceof Future)
-			answer = ((Future)answer).get();
+			answer = ((Future<T>)answer).get();
 		return answer;
 	}
 	

@@ -116,7 +116,6 @@ public class RandomUtilTest extends BaseTest {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
 	public void randomWrapperListByType() {
 		Asserts.assertThat(RandomUtil.randomList(8, Boolean.class))
 			.test(it -> ((List<Boolean>)it).size() == 8);
@@ -137,7 +136,6 @@ public class RandomUtilTest extends BaseTest {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
 	public void randomWrapperListByRandom() {
 		Asserts.assertThat(RandomUtil.randomList(8, it -> it.nextBoolean()))
 			.test(it -> ((List<Boolean>)it).size() == 8);
