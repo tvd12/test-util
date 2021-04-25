@@ -23,8 +23,15 @@ public final class RandomUtil {
 	private static final int MAX_SMALL_SIZE_EXCLUSIVE = MAX_SMALL_SIZE + 1;
 	private static final String HEX_CHARS = "0123456789abcdef";
 	private static final String ALPHABET_CHARS = "abcdefghijklmnopqrstuvwxyz";
-	private static final Date MIN_DATE = new Date(1);
-	private static final long HUNDRED_YEAR_MILLISECOND = (100 * 365 + 24 + 60 + 60) * 1000;
+	private static final long HUNDRED_YEAR_SECONDS = 100L * 365L * 24L * 60L * 60L;
+	private static final Instant MIN_INSTANT = Instant.ofEpochSecond(1);
+	private static final Instant MAX_INSTANT = Instant.now().plusSeconds(HUNDRED_YEAR_SECONDS);
+	private static final Date MIN_DATE = Date.from(MIN_INSTANT);
+	private static final Date MAX_DATE = Date.from(MAX_INSTANT);
+	private static final LocalDate MIN_LOCAL_DATE = LocalDate.of(1000, 1, 1);
+	private static final LocalDate MAX_LOCAL_DATE = LocalDate.of(9999, 12, 31);
+	private static final LocalDateTime MIN_LOCAL_DATE_TIME = MIN_LOCAL_DATE.atStartOfDay();
+	private static final LocalDateTime MAX_LOCAL_DATE_TIME = MAX_LOCAL_DATE.atStartOfDay();
 	
 	private RandomUtil() {}
 	
@@ -311,7 +318,7 @@ public final class RandomUtil {
 	}
 	
 	public static Instant randomInstant() {
-		return randomInstant(Instant.MIN.plusSeconds(1), Instant.MAX.minusSeconds(1));
+		return randomInstant(MIN_INSTANT, MAX_INSTANT);
 	}
 	
 	public static Instant randomInstantBeforeNow() {
@@ -319,11 +326,11 @@ public final class RandomUtil {
 	}
 	
 	public static Instant randomInstantBefore(Instant upperExclusive) {
-	    return randomInstant(Instant.MIN.plusSeconds(1), upperExclusive);
+	    return randomInstant(MIN_INSTANT, upperExclusive);
 	}
 	
 	public static Instant randomInstantAfter(Instant startInclusive) {
-	    return randomInstant(startInclusive, Instant.MAX.minusSeconds(1));
+	    return randomInstant(startInclusive, MAX_INSTANT);
 	}
 	
 	public static Instant randomInstant(Instant startInclusive, Instant endExclusive) {
@@ -334,10 +341,7 @@ public final class RandomUtil {
 	}
 	
 	public static Date randomDate() {
-		return randomDate(
-				MIN_DATE, 
-				new Date(System.currentTimeMillis() + HUNDRED_YEAR_MILLISECOND)
-		);
+		return randomDate(MIN_DATE, MAX_DATE);
 	}
 	
 	public static Date randomDateBeforeNow() {
@@ -349,10 +353,7 @@ public final class RandomUtil {
 	}
 	
 	public static Date randomDateAfter(Date startInclusive) {
-	    return randomDate(
-	    		startInclusive, 
-	    		new Date(System.currentTimeMillis() + HUNDRED_YEAR_MILLISECOND)
-	    );
+	    return randomDate(startInclusive, MAX_DATE);
 	}
 	
 	public static Date randomDate(Date startInclusive, Date endExclusive) {
@@ -363,7 +364,7 @@ public final class RandomUtil {
 	}
 	
 	public static LocalDate randomLocalDate() {
-		return randomLocalDate(LocalDate.MIN, LocalDate.MAX);
+		return randomLocalDate(MIN_LOCAL_DATE, MAX_LOCAL_DATE);
 	}
 	
 	public static LocalDate randomLocalDateBeforeNow() {
@@ -371,11 +372,11 @@ public final class RandomUtil {
 	}
 	
 	public static LocalDate randomLocalDateBefore(LocalDate upperExclusive) {
-	    return randomLocalDate(LocalDate.MIN, upperExclusive);
+	    return randomLocalDate(MIN_LOCAL_DATE, upperExclusive);
 	}
 	
 	public static LocalDate randomLocalDateAfter(LocalDate startInclusive) {
-	    return randomLocalDate(startInclusive, LocalDate.MAX);
+	    return randomLocalDate(startInclusive, MAX_LOCAL_DATE);
 	}
 	
 	public static LocalDate randomLocalDate(LocalDate startInclusive, LocalDate endExclusive) {
@@ -412,7 +413,7 @@ public final class RandomUtil {
 	}
 	
 	public static LocalDateTime randomLocalDateTime() {
-		return randomLocalDateTime(LocalDateTime.MIN.plusSeconds(1), LocalDateTime.MAX.minusSeconds(1));
+		return randomLocalDateTime(MIN_LOCAL_DATE_TIME, MAX_LOCAL_DATE_TIME);
 	}
 	
 	public static LocalDateTime randomLocalDateTimeBeforeNow() {
@@ -420,11 +421,11 @@ public final class RandomUtil {
 	}
 	
 	public static LocalDateTime randomLocalDateTimeBefore(LocalDateTime upperExclusive) {
-	    return randomLocalDateTime(LocalDateTime.MIN.plusSeconds(1), upperExclusive);
+	    return randomLocalDateTime(MIN_LOCAL_DATE_TIME, upperExclusive);
 	}
 	
 	public static LocalDateTime randomLocalDateTimeAfter(LocalDateTime startInclusive) {
-	    return randomLocalDateTime(startInclusive, LocalDateTime.MAX.minusSeconds(1));
+	    return randomLocalDateTime(startInclusive, MAX_LOCAL_DATE_TIME);
 	}
 	
 	public static LocalDateTime randomLocalDateTime(LocalDateTime startTime, LocalDateTime endTime) {

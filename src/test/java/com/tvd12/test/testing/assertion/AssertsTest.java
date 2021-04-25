@@ -208,6 +208,16 @@ public class AssertsTest extends BaseTest {
 		Asserts.assertEquals(new A1(), new A1());
 	}
 	
+	@Test(expectedExceptions = AssertionError.class)
+	public void assertEqualsObjectsFailDueToExpectedItemNull() {
+		Asserts.assertEquals(Arrays.asList("a", null, "c"), Arrays.asList("a", "b", "c"));
+	}
+	
+	@Test(expectedExceptions = AssertionError.class)
+	public void assertEqualsObjectsFailDueToActualItemNull() {
+		Asserts.assertEquals(Arrays.asList("a", "b", "c"), Arrays.asList("a", null, "c"));
+	}
+	
 	public static class A1 {
 		public A2 a2 = new A2();
 	}

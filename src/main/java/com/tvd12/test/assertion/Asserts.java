@@ -250,8 +250,15 @@ public final class Asserts {
 				);
 			}
 			catch (AssertionError e) {
+				StringBuilder builder = new StringBuilder()
+						.append("expected: " + expectedItem);
+				if(expectedItem != null)
+					builder.append(" (" + expectedItem.getClass().getSimpleName() + ")");
+				builder.append(" but was: " + actualItem);
+				if(actualItem != null)
+					builder.append(" (" + actual.getClass().getSimpleName() + ")");
 				throw new AssertionError(
-					"expected: " + expectedItem + " but was: " + actualItem + 
+					builder + 
 					"\nexpect: " + expected +
 					"\nactual: " + actual
 				);
