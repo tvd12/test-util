@@ -8,14 +8,14 @@
 	<packaging>jar</packaging>
 
 	<name>test-util</name>
-	<url>http://www.tvd12.com/java/projects/test-util</url>
+	<url>https://youngmonkeys.org/project/test-utilities/</url>
 	<description>
 		A project support for testing
 	</description>
 
 	<organization>
 		<name>Young Monkeys</name>
-		<url>https://www.tvd12.com</url>
+		<url>https://youngmonkeys.org</url>
 	</organization>
 
 	<properties>
@@ -40,7 +40,7 @@
 			<name>Ta Van Dung</name>
 			<email>itprono3@gmail.com</email>
 			<organization>Young Monkeys</organization>
-			<organizationUrl>https://www.tvd12.com</organizationUrl>
+			<organizationUrl>https://youngmonkeys.org</organizationUrl>
 		</developer>
 	</developers>
 
