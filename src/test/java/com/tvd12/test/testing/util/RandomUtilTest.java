@@ -178,4 +178,26 @@ public class RandomUtilTest extends BaseTest {
 		Asserts.assertThat(RandomUtil.randomLocalDateTimeAfter(LocalDateTime.now())).isEqualsType(LocalDateTime.class);
 	}
 	
+	@Test
+	public void randomMap() {
+		Asserts.assertThat(RandomUtil.randomMap(8, int.class, String.class))
+			.test(it -> it.size() == 8);
+		Asserts.assertThat(RandomUtil.randomMap(8, RandomUtil::randomSmallInt, RandomUtil::randomShortHexString))
+			.test(it -> it.size() == 8);
+		Asserts.assertThat(RandomUtil.randomMap(8, kr -> kr.nextInt(), vr -> vr.nextLong()))
+				.test(it -> it.size() == 8);
+	}
+	
+	@Test
+	public void randomSet() {
+		Asserts.assertThat(RandomUtil.randomSet(8, int.class))
+			.test(it -> it.size() == 8);
+		Asserts.assertThat(RandomUtil.randomSet(8, () -> RandomUtil.randomSmallInt()))
+			.test(it -> it.size() == 8);
+		Asserts.assertThat(RandomUtil.randomSet(8, () -> RandomUtil.randomShortHexString()))
+			.test(it -> it.size() == 8);
+		Asserts.assertThat(RandomUtil.randomSet(8, vr -> vr.nextLong()))
+			.test(it -> it.size() == 8);
+	}
+	
 }

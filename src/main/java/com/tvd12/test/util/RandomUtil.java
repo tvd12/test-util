@@ -10,8 +10,12 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -315,6 +319,50 @@ public final class RandomUtil {
 			list.add(random.apply(ThreadLocalRandom.current()));
 		}
 		return list;
+	}
+	
+	public static <T> Set<T> randomSet(int size, Class<T> itemType) {
+		return randomSet(size, () -> random(itemType));
+	}
+	
+	public static <T> Set<T> randomSet(int size, Supplier<T> random) {
+		Set<T> set = new HashSet<>();
+		for(int i = 0 ; i < size ; ++i) {
+			T item = random.get();
+			while(set.contains(item))
+				item = random.get();
+			set.add(item);
+		}
+		return set;
+	}
+	
+	public static <T> Set<T> randomSet(int size, Function<Random, T> random) {
+		return randomSet(size, () -> random.apply(ThreadLocalRandom.current()));
+	}
+	
+	public static <K, V> Map<K, V> randomMap(
+			int size, Class<K> keyType, Class<V> valueType) {
+		return randomMap(size, () -> random(keyType), () -> random(valueType));
+	}
+	
+	public static <K, V> Map<K, V> randomMap(
+			int size, Supplier<K> keyRandom, Supplier<V> valueRandom) {
+		Map<K, V> map = new HashMap<>();
+		for(int i = 0 ; i < size ; ++i) {
+			K key = keyRandom.get();
+			while(map.containsKey(key))
+				key = keyRandom.get();
+			map.put(key, valueRandom.get());
+		}
+		return map;
+	}
+	
+	public static <K, V> Map<K, V> randomMap(
+			int size, Function<Random, K> keyRandom, Function<Random, V> valueRandom) {
+		return randomMap(
+				size, 
+				() -> keyRandom.apply(ThreadLocalRandom.current()),
+				() -> valueRandom.apply(ThreadLocalRandom.current()));
 	}
 	
 	public static Instant randomInstant() {

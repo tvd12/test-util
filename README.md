@@ -12,50 +12,56 @@ This project support for:
 
 # Code Example
 
-**1. Get method by name**
-
+**1. Test script performance**
 ```java
-	// with no arguments
-	Method nothing = ReflectMethodUtil.getMethod("nothing", ClassA.class);
-	// with one argument (Integer)
-	Method add = ReflectMethodUtil.getMethod("add", ClassA.class, Integer.class);
+long time = Performance.create()
+		.threadCount(100) // set 0 if you want to run in sync mode
+        .loop(1000000000) // optional, default 1000000
+        .test(() -> System.out.println("Hello World"))
+        .getTime();
 ```
 
-**2. Invoke method**
+**2. Assertion**
 ```java
-	// invoke method
-	Object result = ReflectMethodUtil.invokeMethod(add, new ClassA(), new Integer(1));
-	//invoke method by name
-	Object result = ReflectMethodUtil.invokeMethod("add", new ClassA(), new Integer(1));
-	// invoke static method by name
-	ReflectMethodUtil.invokeStaticMethod("hello", ClassA.class, "tvd12.com");
-	// use builder sytax
-	Integer result = MethodInvoker.create()
-                .method("add")
-                .param(new Integer(1))
-                .object(new ClassA())
-                .invoke(Integer.class);
+Asserts.assertEquals(expected, actual);
+
+Asserts.assertThat(actual).isEqualsTo(expected);
+
+Asserts.assertThat(future).isEqualsTo(expected);
 ```
 
-**3. Test script performance**
-- With java 7
+**3. Random**
 ```java
-	long time = Performance.create()
-            .loop(1000000000) // optional, default 1000000
-            .test(new Script() {
-                @Override
-                public void execute() {
-                	System.out.println("Hello World");
-                }
-            })
-            .getTime();
+RandomUtil.randomSmallInt();
+
+RandomUtil.randomShortAlphabetString();
+
+RandomUtil.randomMap(size, int.class, String.class);
 ```
-- With java 8
+
+**4. Get method by name**
+
 ```java
-	long time = Performance.create()
-            .loop(1000000000) // optional, default 1000000
-            .test(() -> {System.out.println("Hello World");})
-            .getTime();
+// with no arguments
+Method nothing = ReflectMethodUtil.getMethod("nothing", ClassA.class);
+// with one argument (Integer)
+Method add = ReflectMethodUtil.getMethod("add", ClassA.class, Integer.class);
+```
+
+**5. Invoke method**
+```java
+// invoke method
+Object result = ReflectMethodUtil.invokeMethod(add, new ClassA(), new Integer(1));
+//invoke method by name
+Object result = ReflectMethodUtil.invokeMethod("add", new ClassA(), new Integer(1));
+// invoke static method by name
+ReflectMethodUtil.invokeStaticMethod("hello", ClassA.class, "tvd12.com");
+// use builder syntax
+Integer result = MethodInvoker.create()
+            .method("add")
+            .param(new Integer(1))
+            .object(new ClassA())
+            .invoke(Integer.class);
 ```
 
 # Motivation
@@ -70,7 +76,7 @@ so, we need create a library to support them
 	<dependency>
 		<groupId>com.tvd12</groupId>
 		<artifactId>test-util</artifactId>
-		<version>1.0.5</version>
+		<version>1.1.0</version>
 	</dependency>
 ```
 # API Reference
@@ -83,7 +89,7 @@ mvn test
 
 # Contributors
 
-None
+- [DungTV](mailto:itprono3@gmail.com)
 
 # License
 
