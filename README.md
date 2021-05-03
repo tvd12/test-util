@@ -15,10 +15,10 @@ This project support for:
 **1. Test script performance**
 ```java
 long time = Performance.create()
-		.threadCount(100) // set 0 if you want to run in sync mode
-        .loop(1000000000) // optional, default 1000000
-        .test(() -> System.out.println("Hello World"))
-        .getTime();
+	.threadCount(100) // set 0 if you want to run in sync mode
+	.loop(1000000000) // optional, default 1000000
+	.test(() -> System.out.println("Hello World"))
+	.getTime();
 ```
 
 **2. Assertion**
@@ -44,6 +44,7 @@ RandomUtil.randomMap(size, int.class, String.class);
 ```java
 // with no arguments
 Method nothing = ReflectMethodUtil.getMethod("nothing", ClassA.class);
+
 // with one argument (Integer)
 Method add = ReflectMethodUtil.getMethod("add", ClassA.class, Integer.class);
 ```
@@ -52,16 +53,19 @@ Method add = ReflectMethodUtil.getMethod("add", ClassA.class, Integer.class);
 ```java
 // invoke method
 Object result = ReflectMethodUtil.invokeMethod(add, new ClassA(), new Integer(1));
+
 //invoke method by name
 Object result = ReflectMethodUtil.invokeMethod("add", new ClassA(), new Integer(1));
+
 // invoke static method by name
 ReflectMethodUtil.invokeStaticMethod("hello", ClassA.class, "tvd12.com");
+
 // use builder syntax
 Integer result = MethodInvoker.create()
-            .method("add")
-            .param(new Integer(1))
-            .object(new ClassA())
-            .invoke(Integer.class);
+        .method("add")
+        .param(new Integer(1))
+        .object(new ClassA())
+        .invoke(Integer.class);
 ```
 
 # Motivation
@@ -73,11 +77,11 @@ so, we need create a library to support them
 # Installation
 
 ```xml
-	<dependency>
-		<groupId>com.tvd12</groupId>
-		<artifactId>test-util</artifactId>
-		<version>1.1.0</version>
-	</dependency>
+<dependency>
+	<groupId>com.tvd12</groupId>
+	<artifactId>test-util</artifactId>
+	<version>1.1.0</version>
+</dependency>
 ```
 # API Reference
 
