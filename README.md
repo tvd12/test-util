@@ -87,6 +87,20 @@ so, we need create a library to support them
 	<version>1.1.0</version>
 </dependency>
 ```
+
+You need create file `AllTests.tng.xml` in your `src/test/resources` folder with content, example:
+
+```xml
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All-Test">
+    <test name="All">
+    	<packages>
+    		<package name="your_test_package"/>
+    	</packages>
+    </test>
+</suite>
+```
+
 # API Reference
 
 http://www.javadoc.io/doc/com.tvd12/test-util
