@@ -1,13 +1,12 @@
 package com.tvd12.test.reflect;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public final class ReflectMethodUtil {
+public final class MethodUtil {
     
     //prevent new instance
-    private ReflectMethodUtil() {}
+    private MethodUtil() {}
     
     /**
      * Get a method (public, private, protected, package access) 
@@ -22,20 +21,7 @@ public final class ReflectMethodUtil {
      */
     public static Method getMethod(String methodName, 
             Class<?> clazz, Class<?>... parameterTypes) {
-        Method method = null;
-        Class<?> superClass = clazz;
-        while(method == null) {
-            try {
-                method = superClass.getDeclaredMethod(methodName, parameterTypes);
-            } catch (NoSuchMethodException | SecurityException e) {
-                superClass = superClass.getSuperclass();
-                if(superClass == Object.class) 
-                    throw new IllegalStateException("Has no declared methods " + 
-                            methodName + " on class " + clazz, e);
-            }
-        }
-        method.setAccessible(true);
-        return method;
+        return ReflectMethodUtil.getMethod(methodName, clazz, parameterTypes);
     }
     
     /**
@@ -53,8 +39,7 @@ public final class ReflectMethodUtil {
      */
     public static Method getMethod(String methodName, 
             Object object, Object... params) {
-        Class<?>[] types = getParameterTypes(params);
-        return getMethod(methodName, object.getClass(), types);
+    	return ReflectMethodUtil.getMethod(methodName, object, params);
     }
     
     /**
@@ -65,32 +50,7 @@ public final class ReflectMethodUtil {
      * @return a constructor
      */
     public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... parameterTypes) {
-        try {
-            Constructor<?> result = clazz.getDeclaredConstructor(parameterTypes);
-            result.setAccessible(true);
-            return result;
-        } catch (NoSuchMethodException | SecurityException e) {
-            throw new IllegalStateException("Has no constructor with " +
-                    ParameterTypeUtil.toString(parameterTypes) + 
-                    " parameters on class " + clazz, e);
-        }
-    }
-    
-    /**
-     * Get parameter types from array of parameter values
-     * 
-     * @param params array of parameters 
-     * @return array of parameter types
-     */
-    private static Class<?>[] getParameterTypes(Object... params) {
-        Class<?> types[] = null;
-        if(params != null) {
-            types = new Class<?>[params.length];
-            for(int i = 0 ; i < params.length ; i++) {
-                types[i] = params[i].getClass();
-            }
-        }
-        return types;
+        return ReflectMethodUtil.getConstructor(clazz, parameterTypes);
     }
     
     /**
@@ -99,19 +59,14 @@ public final class ReflectMethodUtil {
      * @param method method to invoke
      * @param object invoke method on this object 
      * @param params array of parameter
+     * @param <T> the return type
      * @return the value returned by the invoked method
      * @exception IllegalStateException when can not invoke method
      */
-    public static Object invokeMethod(Method method, 
+    @SuppressWarnings("unchecked")
+	public static <T> T invokeMethod(Method method, 
             Object object, Object... params) {
-        try {
-            return method.invoke(object, params);
-        } catch (IllegalAccessException 
-                | IllegalArgumentException 
-                | InvocationTargetException e) {
-            throw new IllegalStateException("Can not invoke method " + method.getName()
-                       + " on class " + ((object != null) ? object.getClass() : ""), e);
-        }
+        return (T)ReflectMethodUtil.invokeMethod(method, object, params);
     }
     
     /**
@@ -121,12 +76,13 @@ public final class ReflectMethodUtil {
      * @param methodName method name
      * @param object invoke method on this object 
      * @param params array of parameter
+     * @param <T> the result type
      * @return the value returned by the invoked method
      */
-    public static Object invokeMethod(String methodName, 
+    @SuppressWarnings("unchecked")
+	public static <T> T invokeMethod(String methodName, 
             Object object, Object... params) {
-        Method method = getMethod(methodName, object, params);
-        return invokeMethod(method, object, params);
+        return (T)ReflectMethodUtil.invokeMethod(methodName, object, params);
     }
     
     /**
@@ -136,13 +92,13 @@ public final class ReflectMethodUtil {
      * @param methodName method name
      * @param clazz invoke method on this class 
      * @param params array of parameter
+     * @param <T> the result type
      * @return the value returned by the invoked method
      */
-    public static Object invokeStaticMethod(String methodName, 
+    @SuppressWarnings("unchecked")
+	public static <T> T invokeStaticMethod(String methodName, 
             Class<?> clazz, Object... params) {
-        Class<?>[] types = getParameterTypes(params);
-        Method method = getMethod(methodName, clazz, types);
-        return invokeMethod(method, null, params);
+        return (T)ReflectMethodUtil.invokeStaticMethod(methodName, clazz, params);
     }
     
     /**
@@ -152,7 +108,7 @@ public final class ReflectMethodUtil {
      * @param params array of parameter
      * @return the value returned by the invoked method
      */
-    public static Object invokeStaticMethod(Method method, Object... params) {
+    public static <T> T invokeStaticMethod(Method method, Object... params) {
         return invokeMethod(method, null, params);
     }
     
@@ -161,15 +117,11 @@ public final class ReflectMethodUtil {
      * 
      * @param clazz declaring class
      * @param params array of parameters
+     * @param <T> the result type
      * @return the result
      */
-    public static Object invokeConstructor(Class<?> clazz, Object... params) {
-        try {
-            return getConstructor(clazz, getParameterTypes(params)).newInstance(params);
-        } catch (InstantiationException 
-                | IllegalAccessException 
-                | InvocationTargetException e) {
-            throw new IllegalStateException("Can not invoke constructor on class " + clazz, e);
-        }
+    @SuppressWarnings("unchecked")
+	public static <T> T invokeConstructor(Class<?> clazz, Object... params) {
+        return (T)ReflectMethodUtil.invokeConstructor(clazz, params);
     }
 }
