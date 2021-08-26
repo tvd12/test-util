@@ -24,6 +24,14 @@ public class MethodInvokerTest {
         		.object(new B())
         		.invoke(String.class);
         assert get.equals("private method: 1-a");
+        
+        String call = MethodInvoker.create()
+        		.method("get")
+        		.param(int.class, 1)
+        		.params("a")
+        		.object(new B())
+        		.call();
+        assert call.equals("private method: 1-a");
     }
     
     public static class ClassA {

@@ -109,6 +109,17 @@ public class MethodInvoker {
     }
     
     /**
+     * invoke method and cast returned result with type
+     * 
+     * @param <T> the output type
+     * @return the value returned by the invoked method
+     */
+    @SuppressWarnings("unchecked")
+	public <T> T call() {
+    	return (T)invoke();
+    }
+    
+    /**
      * invoke method
      * 
      * @return the value returned by the invoked method
