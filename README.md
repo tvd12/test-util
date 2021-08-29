@@ -17,6 +17,7 @@ This project support for:
 # Code Example
 
 **1. Test script performance**
+
 ```java
 long time = Performance.create()
 	.threadCount(100) // set 0 if you want to run in sync mode
@@ -26,6 +27,7 @@ long time = Performance.create()
 ```
 
 **2. Assertion**
+
 ```java
 Asserts.assertEquals(expected, actual);
 
@@ -35,6 +37,7 @@ Asserts.assertThat(future).isEqualsTo(expected);
 ```
 
 **3. Random**
+
 ```java
 RandomUtil.randomSmallInt();
 
@@ -47,22 +50,23 @@ RandomUtil.randomMap(size, int.class, String.class);
 
 ```java
 // with no arguments
-Method nothing = ReflectMethodUtil.getMethod("nothing", ClassA.class);
+Method nothing = MethodUtil.getMethod("nothing", ClassA.class);
 
 // with one argument (Integer)
-Method add = ReflectMethodUtil.getMethod("add", ClassA.class, Integer.class);
+Method add = MethodUtil.getMethod("add", ClassA.class, Integer.class);
 ```
 
 **5. Invoke method**
+
 ```java
 // invoke method
-Object result = ReflectMethodUtil.invokeMethod(add, new ClassA(), new Integer(1));
+Integer result = MethodUtil.invokeMethod(add, new ClassA(), new Integer(1));
 
 //invoke method by name
-Object result = ReflectMethodUtil.invokeMethod("add", new ClassA(), new Integer(1));
+Integer result = MethodUtil.invokeMethod("add", new ClassA(), new Integer(1));
 
 // invoke static method by name
-ReflectMethodUtil.invokeStaticMethod("hello", ClassA.class, "tvd12.com");
+MethodUtil.invokeStaticMethod("hello", ClassA.class, "tvd12.com");
 
 // use builder syntax
 Integer result = MethodInvoker.create()
