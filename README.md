@@ -80,11 +80,13 @@ so, we need create a library to support them
 
 # Installation
 
+### Maven
+
 ```xml
 <dependency>
 	<groupId>com.tvd12</groupId>
 	<artifactId>test-util</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 </dependency>
 ```
 
@@ -99,6 +101,12 @@ You need create file `AllTests.tng.xml` in your `src/test/resources` folder with
     	</packages>
     </test>
 </suite>
+```
+
+### Gradle
+
+```groovy
+testImplementation 'com.tvd12:test-util:1.1.1'
 ```
 
 # API Reference
