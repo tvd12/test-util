@@ -3,6 +3,8 @@ package com.tvd12.test.assertion;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -35,6 +37,10 @@ public final class Asserts {
 		return new AssertThat<>(actualSuppler);
 	}
 	
+	public static AssertThat<Throwable> assertThatThrows(AssertSupplier<Throwable> actualSuppler) {
+        return new AssertThat<>(actualSuppler);
+    }
+	
 	public static Throwable assertThrows(AssertApplier func) {
 		try {
 			func.apply();
@@ -56,6 +62,18 @@ public final class Asserts {
 			throw new AssertionError("expected: false but was: true");
 		return true;
 	}
+	
+	public static boolean assertZero(Number value) {
+	    return assertEquals(0L, value.longValue());
+	}
+	
+	public static boolean assertZero(BigInteger value) {
+        return assertEquals(BigInteger.ZERO, value);
+    }
+	
+	public static boolean assertZero(BigDecimal value) {
+        return assertEquals(BigDecimal.ZERO, value);
+    }
 	
 	public static boolean assertNotEquals(
 			Object expected, 

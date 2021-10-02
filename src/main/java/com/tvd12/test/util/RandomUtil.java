@@ -162,7 +162,7 @@ public final class RandomUtil {
 	public static String randomAlphabetString(int size) {
 		StringBuilder builder = new StringBuilder();
 		for(int i = 0 ; i < size ; ++i) {
-			builder.append(ALPHABET_CHARS.charAt(ThreadLocalRandom.current().nextInt(HEX_CHARS.length())));
+			builder.append(ALPHABET_CHARS.charAt(ThreadLocalRandom.current().nextInt(ALPHABET_CHARS.length())));
 		}
 		return builder.toString();
 	}

@@ -1,5 +1,7 @@
 package com.tvd12.test.assertion;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -37,6 +39,46 @@ public class AssertThat<T> {
 		return Asserts.assertNotNull(actual);
 	}
 	
+	public boolean isTrue() {
+	    Boolean booleanValue;
+	    try {
+            actual = getActualValue();
+            booleanValue = (Boolean)actual;
+        }
+        catch (Throwable e) {
+            throw new AssertionError("expected: not null but was exception: " + e);
+        }
+        return Asserts.assertTrue(booleanValue);
+	}
+	
+	public boolean isFalse() {
+        Boolean booleanValue;
+        try {
+            actual = getActualValue();
+            booleanValue = (Boolean)actual;
+        }
+        catch (Throwable e) {
+            throw new AssertionError("expected: true but was exception: " + e);
+        }
+        return Asserts.assertFalse(booleanValue);
+    }
+	
+	public boolean isZero() {
+        try {
+            actual = getActualValue();
+        }
+        catch (Throwable e) {
+            throw new AssertionError("expected: false but was exception: " + e);
+        }
+        if(actual instanceof BigInteger)
+            return Asserts.assertZero((BigInteger)actual);
+        if(actual instanceof BigDecimal)
+            return Asserts.assertZero((BigDecimal)actual);
+        if(actual instanceof Number)
+            return Asserts.assertZero((Number)actual);
+        throw new AssertionError("expected 0 or ZERO but was: " + actual);
+    }
+	
 	public boolean test(Predicate<T> predicate) {
 		try {
 			actual = getActualValue();
@@ -63,12 +105,18 @@ public class AssertThat<T> {
 		return isEqualsTo(expected, true);
 	}
 	
-	public boolean isEqualsTo(Object expected, boolean mustEqualsType) {
+	@SuppressWarnings("unchecked")
+    public boolean isEqualsTo(Object expected, boolean mustEqualsType) {
 		try {
 			actual = getActualValue();
 		}
 		catch (Throwable e) {
-			throw new AssertionError("expected: " + expected + " but was exception: " + e);
+		    if (expected instanceof Exception) {
+		        actual = (T) e;
+		    }
+		    else {
+		        throw new AssertionError("expected: " + expected + " but was exception: " + e);
+		    }
 		}
 		return Asserts.assertEquals(expected, actual, mustEqualsType);
 	}
