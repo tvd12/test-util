@@ -20,6 +20,9 @@ public class MethodInvoker {
     //object invoke method on this object 
     private Object object;
     
+    // static class to call method
+    private Class<?> staticClass;
+    
     //method to invoke
     private Method method;
     
@@ -98,13 +101,24 @@ public class MethodInvoker {
     }
     
     /**
-     * set object
+     * set object to call method
      * 
-     * @param object object
+     * @param object the object to call method
      * @return this pointer
      */
     public MethodInvoker object(Object object) {
         this.object = object;
+        return this;
+    }
+    
+    /**
+     * set static class to call method
+     * 
+     * @param staticClass the static class to call method
+     * @return this pointer
+     */
+    public MethodInvoker staticClass(Class<?> staticClass) {
+        this.staticClass = staticClass;
         return this;
     }
     
@@ -134,9 +148,16 @@ public class MethodInvoker {
     			paramArray[i] = param.getValue();
     		}
         if(method == null) {
-        		Class<?> objectType = object.getClass();
-        		method = ReflectMethodUtil
-                .getMethod(methodName, objectType, paramTypeArray);
+            if(methodName == null) {
+                throw new IllegalArgumentException("you must specific method's name to call");
+            }
+            if(staticClass == null && object == null) {
+                throw new IllegalArgumentException(
+                    "you must specific static class or object that contains method: " + methodName);
+            }
+    		Class<?> objectType = staticClass != null ? staticClass : object.getClass();
+    		method = ReflectMethodUtil
+    		        .getMethod(methodName, objectType, paramTypeArray);
         }
         return ReflectMethodUtil.invokeMethod(method, object, paramArray);
     }
