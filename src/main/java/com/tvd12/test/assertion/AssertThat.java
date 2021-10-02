@@ -2,6 +2,7 @@ package com.tvd12.test.assertion;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -21,7 +22,7 @@ public class AssertThat<T> {
 	
 	public boolean isNull() {
 		try {
-			actual = getActualValue();
+			actual = getActualValue(true);
 		}
 		catch (Throwable e) {
 			throw new AssertionError("expected: null but was exception: " + e);
@@ -31,7 +32,7 @@ public class AssertThat<T> {
 	
 	public boolean isNotNull() {
 		try {
-			actual = getActualValue();
+			actual = getActualValue(true);
 		}
 		catch (Throwable e) {
 			throw new AssertionError("expected: not null but was exception: " + e);
@@ -77,6 +78,21 @@ public class AssertThat<T> {
         if(actual instanceof Number)
             return Asserts.assertZero((Number)actual);
         throw new AssertionError("expected 0 or ZERO but was: " + actual);
+    }
+	
+	@SuppressWarnings("rawtypes")
+    public boolean isEmpty() {
+        try {
+            actual = getActualValue();
+        }
+        catch (Throwable e) {
+            throw new AssertionError("expected: false but was exception: " + e);
+        }
+        if(actual instanceof Iterable)
+            return Asserts.assertEmpty((Iterable)actual);
+        if(actual instanceof Map)
+            return Asserts.assertEmpty((Map)actual);
+        throw new AssertionError("expected empty (iterable or map) but was: " + actual);
     }
 	
 	public boolean test(Predicate<T> predicate) {
@@ -168,9 +184,16 @@ public class AssertThat<T> {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	private T getActualValue() throws Throwable {
+	    return getActualValue(false);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private T getActualValue(boolean nullable) throws Throwable {
 		T answer = actualSupplier != null ? actualSupplier.apply() : actual;
+		if(answer == null && !nullable) {
+		    throw new AssertionError("expected: a not null value but was: null");
+		}
 		if(answer instanceof Future)
 			answer = ((Future<T>)answer).get();
 		return answer;

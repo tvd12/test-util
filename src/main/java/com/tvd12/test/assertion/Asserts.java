@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -73,6 +74,24 @@ public final class Asserts {
 	
 	public static boolean assertZero(BigDecimal value) {
         return assertEquals(BigDecimal.ZERO, value);
+    }
+	
+	public static boolean assertEmpty(Iterable iterable) {
+	    int size = 0;
+	    Iterator iterator = iterable.iterator();
+	    while(iterator.hasNext()) {
+	        ++size;
+	        iterator.next();
+	    }
+	    if(size == 0)
+	        return true;
+	    throw new AssertionError("expected: empty but was: " + size);
+	}
+	
+	public static boolean assertEmpty(Map map) {
+        if(map.isEmpty())
+            return true;
+        throw new AssertionError("expected: empty but was: " + map.size());
     }
 	
 	public static boolean assertNotEquals(

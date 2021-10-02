@@ -2,6 +2,8 @@ package com.tvd12.test.testing.assertion;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 import org.testng.annotations.Test;
@@ -237,5 +239,39 @@ public class AssertThatTest extends BaseTest {
             throw new Exception("just test");
         })
         .isZero();
+    }
+    
+    @Test
+    public void assertEmptyTest() {
+        Asserts.assertThat(Collections.emptyList()).isEmpty();
+        Asserts.assertThat(Collections.emptyMap()).isEmpty();
+    }
+    
+    @Test(expectedExceptions = AssertionError.class)
+    public void assertEmptyListButNot() {
+        Asserts.assertThat(Arrays.asList(1)).isEmpty();
+    }
+    
+    @Test(expectedExceptions = AssertionError.class)
+    public void assertEmptyMapButNot() {
+        Asserts.assertThat(Collections.singletonMap("a", 1)).isEmpty();
+    }
+    
+    @Test(expectedExceptions = AssertionError.class)
+    public void assertThatEmptyButWrongType() {
+        Asserts.assertThat(new Object()).isEmpty();
+    }
+    
+    @Test(expectedExceptions = AssertionError.class)
+    public void assertThatEmptyFailDueToNotEquals() {
+        Asserts.assertThat(() -> {
+            throw new Exception("just test");
+        })
+        .isEmpty();
+    }
+    
+    @Test(expectedExceptions = AssertionError.class)
+    public void getActualValueNotNullableButNull() {
+        Asserts.assertThat(null).isEmpty();
     }
 }
