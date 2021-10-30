@@ -44,7 +44,7 @@ public class AssertsTest extends BaseTest {
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void assertEqualsTypeFailDueToActualNull() {
-		Asserts.assertEqualsType(getClass(), null);
+		Asserts.assertEqualsType(null, getClass());
 	}
 	
 	@Test(expectedExceptions = AssertionError.class)
@@ -198,7 +198,7 @@ public class AssertsTest extends BaseTest {
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void assertEqualsObjectsFailDueToNotEquals() {
-		Asserts.assertEquals(new B("b", 1), new C(1), false);
+		Asserts.assertEquals(new C(1), new B("b", 1), false);
 	}
 	
 	@Test

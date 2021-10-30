@@ -65,15 +65,15 @@ public final class Asserts {
 	}
 	
 	public static boolean assertZero(Number value) {
-	    return assertEquals(0L, value.longValue());
+	    return assertEquals(value.longValue(), 0L);
 	}
 	
 	public static boolean assertZero(BigInteger value) {
-        return assertEquals(BigInteger.ZERO, value);
+        return assertEquals(value, BigInteger.ZERO);
     }
 	
 	public static boolean assertZero(BigDecimal value) {
-        return assertEquals(BigDecimal.ZERO, value);
+        return assertEquals(value, BigDecimal.ZERO);
     }
 	
 	public static boolean assertEmpty(Iterable iterable) {
@@ -95,19 +95,19 @@ public final class Asserts {
     }
 	
 	public static boolean assertNotEquals(
-			Object expected, 
-			Object actual
-		) {
-		return assertNotEquals(expected, actual, true);
+        Object actual,
+		Object expected 
+	) {
+		return assertNotEquals(actual, expected, true);
 	}
 	
 	public static boolean assertNotEquals(
+        Object actual,
 		Object expected, 
-		Object actual,
 		boolean mustEqualsType
 	) {
 		try {
-			assertEquals(expected, actual, mustEqualsType); 
+			assertEquals(actual, expected, mustEqualsType); 
 		}
 		catch (AssertionError e) {
 			return true;
@@ -116,8 +116,9 @@ public final class Asserts {
 	}
 	
 	public static boolean assertEqualsType(
-			Class<?> expectedType, 
-			Object actual
+        Object actual,
+		Class<?> expectedType
+			
 	) {
 		if(actual == null)
 			throw new AssertionError("expected: " + expectedType.getName() + " but was: null");
@@ -127,16 +128,16 @@ public final class Asserts {
 	}
 	
 	public static boolean assertEquals(
-			Object expected, 
-			Object actual
+        Object actual,
+		Object expected 
 	) {
-		return assertEquals(expected, actual, true);
+		return assertEquals(actual, expected, true);
 	}
 	
 	public static boolean assertEquals(
-			Object expected, 
-			Object actual, 
-			boolean mustEqualsType
+        Object actual, 
+		Object expected, 
+		boolean mustEqualsType
 	) {
 		if(expected == actual)
 			return true;
@@ -177,8 +178,8 @@ public final class Asserts {
 		
 		if(expectedType.isArray() && actualType.isArray()) {
 			return assertEqualsArrays(
+			        actual, 
 					expected, 
-					actual, 
 					mustEqualsType
 			);
 		}
@@ -193,8 +194,8 @@ public final class Asserts {
 		if(Collection.class.isAssignableFrom(expectedType) && 
 				Collection.class.isAssignableFrom(actualType)) {
 			return assertEqualsCollections(
+			        new ArrayList<>((Collection)actual),
 					new ArrayList<>((Collection)expected), 
-					new ArrayList<>((Collection)actual), 
 					mustEqualsType
 			);
 		}
@@ -209,8 +210,8 @@ public final class Asserts {
 		if(Map.class.isAssignableFrom(expectedType) && 
 				Map.class.isAssignableFrom(actualType)) {
 			return assertEqualsMaps(
+			        (Map)actual, 
 					(Map)expected, 
-					(Map)actual, 
 					mustEqualsType
 			);
 		}
@@ -224,7 +225,7 @@ public final class Asserts {
 			throw new AssertionError("expected: " + expected + " but was: " + actual);
 		}
 		try {
-			return assertEqualsObjects(expected, actual, mustEqualsType);
+			return assertEqualsObjects(actual, expected, mustEqualsType);
 		}
 		catch (AssertionError e) {
 			throw e;
@@ -238,9 +239,9 @@ public final class Asserts {
 	}
 	
 	private static boolean assertEqualsArrays(
-			Object expected, 
-			Object actual, 
-			boolean mustEqualsType
+        Object actual,
+		Object expected, 
+		boolean mustEqualsType
 	) {
 		int expectedLength = Array.getLength(expected);
 		int actualLength = Array.getLength(actual);
@@ -251,8 +252,8 @@ public final class Asserts {
 			Object actualItem = Array.get(actual, i);
 			try {
 				assertEquals(
+			        actualItem, 
 					expectedItem, 
-					actualItem, 
 					mustEqualsType
 				);
 			}
@@ -268,9 +269,9 @@ public final class Asserts {
 	}
 	
 	private static boolean assertEqualsCollections(
-			List expected, 
-			List actual, 
-			boolean mustEqualsType
+        List actual,
+        List expected,
+		boolean mustEqualsType
 	) {
 		int expectedLength = expected.size();
 		int actualLength = actual.size();
@@ -281,8 +282,8 @@ public final class Asserts {
 			Object actualItem = actual.get(i);
 			try {
 				assertEquals(
+			        actualItem,
 					expectedItem, 
-					actualItem, 
 					mustEqualsType
 				);
 			}
@@ -305,13 +306,13 @@ public final class Asserts {
 	}
 	
 	private static boolean assertEqualsMaps(
-			Map expected, 
-			Map actual, 
-			boolean mustEqualsType
+        Map actual,
+		Map expected, 
+		boolean mustEqualsType
 	) {
 		return assertEqualsMaps(
+		        actual,
 				expected,
-				actual,
 				mustEqualsType,
 				"map",
 				"key"
@@ -319,11 +320,11 @@ public final class Asserts {
 	}
 	
 	private static boolean assertEqualsMaps(
-			Map expected, 
-			Map actual, 
-			boolean mustEqualsType,
-			String mapType,
-			String keyType
+        Map actual,
+		Map expected, 
+		boolean mustEqualsType,
+		String mapType,
+		String keyType
 	) {
 		int expectedLength = expected.size();
 		int actualLength = actual.size();
@@ -336,8 +337,8 @@ public final class Asserts {
 			Entry actualEntry = actualEntries.get(i);
 			try {
 				assertEquals(
+			        actualEntry.getKey(),
 					expectedEntry.getKey(), 
-					actualEntry.getKey(), 
 					mustEqualsType
 				);
 			}
@@ -350,8 +351,8 @@ public final class Asserts {
 			}
 			try {
 				assertEquals(
-					expectedEntry.getValue(), 
-					actualEntry.getValue(), 
+			        actualEntry.getValue(),
+					expectedEntry.getValue(),
 					mustEqualsType
 				);
 			}
@@ -367,9 +368,9 @@ public final class Asserts {
 	}
 	
 	private static boolean assertEqualsObjects(
-			Object expected, 
-			Object actual, 
-			boolean mustEqualsType
+        Object actual,
+		Object expected, 
+		boolean mustEqualsType
 	) throws Exception {
 		Map expectedMap = new HashMap<>();
 		Map actualMap = new HashMap<>();
@@ -394,8 +395,8 @@ public final class Asserts {
 			actualType = actualType.getSuperclass();
 		}
 		return assertEqualsMaps(
+		        actualMap,
 				expectedMap,
-				actualMap,
 				mustEqualsType,
 				"object",
 				"field"

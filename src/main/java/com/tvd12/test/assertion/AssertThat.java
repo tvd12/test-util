@@ -114,7 +114,7 @@ public class AssertThat<T> {
 		catch (Throwable e) {
 			throw new AssertionError("expected: " + expectedType.getName() + " but was exception: " + e);
 		}
-		return Asserts.assertEqualsType(expectedType, actual);
+		return Asserts.assertEqualsType(actual, expectedType);
 	}
 	
 	public boolean isEqualsTo(Object expected) {
