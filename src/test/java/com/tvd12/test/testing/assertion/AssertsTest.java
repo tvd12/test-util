@@ -1,5 +1,7 @@
 package com.tvd12.test.testing.assertion;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.test.assertion.AssertThat;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
@@ -41,7 +44,7 @@ public class AssertsTest extends BaseTest {
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void assertEqualsTypeFailDueToActualNull() {
-		Asserts.assertEqualsType(getClass(), null);
+		Asserts.assertEqualsType(null, getClass());
 	}
 	
 	@Test(expectedExceptions = AssertionError.class)
@@ -195,7 +198,7 @@ public class AssertsTest extends BaseTest {
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void assertEqualsObjectsFailDueToNotEquals() {
-		Asserts.assertEquals(new B("b", 1), new C(1), false);
+		Asserts.assertEquals(new C(1), new B("b", 1), false);
 	}
 	
 	@Test
@@ -216,6 +219,32 @@ public class AssertsTest extends BaseTest {
 	@Test(expectedExceptions = AssertionError.class)
 	public void assertEqualsObjectsFailDueToActualItemNull() {
 		Asserts.assertEquals(Arrays.asList("a", "b", "c"), Arrays.asList("a", null, "c"));
+	}
+	
+	@Test
+	public void assertZeroOk() {
+	    Asserts.assertZero((byte)0);
+	    Asserts.assertZero(0.0D);
+	    Asserts.assertZero(0.0F);
+	    Asserts.assertZero(0);
+	    Asserts.assertZero(0L);
+	    Asserts.assertZero((short)0);
+	    Asserts.assertZero(BigInteger.ZERO);
+	    Asserts.assertZero(BigDecimal.ZERO);
+	}
+	
+	@Test
+	public void assertThatThrowsTest() {
+	    // given
+	    Exception e = new Exception("just test");
+	    
+	    // when
+	    AssertThat<Throwable> assertThatThrows = Asserts.assertThatThrows(() -> {
+	        throw e;
+	    });
+	    
+	    // then
+	    assertThatThrows.isEqualsTo(e);
 	}
 	
 	public static class A1 {

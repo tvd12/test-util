@@ -34,6 +34,27 @@ public class MethodInvokerTest {
         assert call.equals("private method: 1-a");
     }
     
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void invokeMethodNameNull() {
+        MethodInvoker.create()
+            .invoke();
+    }
+    
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void invokeMethodStaticClassAndObjectNull() {
+        MethodInvoker.create()
+            .method("method")
+            .invoke();
+    }
+    
+    @Test
+    public void invokeMethodStaticNotNull() {
+        MethodInvoker.create()
+            .staticClass(A.class)
+            .method("staticMethod")
+            .invoke();
+    }
+    
     public static class ClassA {
         public String hello(String name) {
             return "Hello " + name;
@@ -42,13 +63,16 @@ public class MethodInvokerTest {
     
     public static class A {
     		
-    		private String get(int i, String str) {
-    			return "private method: " + i + "-" + str;
-    		}
-    		
-    		public String get1() {
-    			return get(0, "");
-    		}
+        private String get(int i, String str) {
+            return "private method: " + i + "-" + str;
+        }
+        
+        public String get1() {
+            return get(0, "");
+        }
+        
+        public static void staticMethod() {
+        }
     	
     }
     
