@@ -14,18 +14,16 @@ import com.tvd12.test.reflect.MethodInvoker;
 public class MethodPerformance {
 
     // performance object
-    private Performance performance
-            = Performance.create();
-    
-    //object invoker object
-    private MethodInvoker invoker
-            = MethodInvoker.create();
-    
-    //builder object
+    private Performance performance = Performance.create();
+
+    // object invoker object
+    private MethodInvoker invoker = MethodInvoker.create();
+
+    // builder object
     public static MethodPerformance create() {
         return new MethodPerformance();
     }
-    
+
     /**
      * execute test script
      * 
@@ -40,7 +38,7 @@ public class MethodPerformance {
         });
         return this;
     }
-    
+
     /**
      * set number of script invocations
      * 
@@ -51,7 +49,7 @@ public class MethodPerformance {
         performance.loop(count);
         return this;
     }
-    
+
     /**
      * set method name
      * 
@@ -62,7 +60,7 @@ public class MethodPerformance {
         invoker.method(name);
         return this;
     }
-    
+
     /**
      * set method to invoke
      * 
@@ -73,7 +71,7 @@ public class MethodPerformance {
         invoker.method(method);
         return this;
     }
-    
+
     /**
      * append parameter
      * 
@@ -84,7 +82,7 @@ public class MethodPerformance {
         invoker.param(value);
         return this;
     }
-    
+
     /**
      * set which object call method
      * 
@@ -95,7 +93,7 @@ public class MethodPerformance {
         invoker.object(object);
         return this;
     }
-    
+
     /**
      * get performance time
      * 
@@ -104,5 +102,5 @@ public class MethodPerformance {
     public long getTime() {
         return performance.getTime();
     }
-    
+
 }

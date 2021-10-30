@@ -5,26 +5,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 
+ * Build to get reflection method
+ * 
+ * @author tvd12
+ *
+ */
 public class MethodBuilder {
 
     // method name
     private String methodName;
-    
+
     // declaring class of method
     private Class<?> clazz;
-    
+
     // list of arguments
     private List<Class<?>> arguments;
-    
+
     public MethodBuilder() {
         arguments = new ArrayList<>();
     }
-    
+
     // factory method
     public static MethodBuilder create() {
         return new MethodBuilder();
     }
-    
+
     /**
      * Set method name
      * 
@@ -35,7 +42,7 @@ public class MethodBuilder {
         this.methodName = name;
         return this;
     }
-    
+
     /**
      * Set declaring class of method
      * 
@@ -46,7 +53,7 @@ public class MethodBuilder {
         this.clazz = clazz;
         return this;
     }
-    
+
     /**
      * Add argument
      * 
@@ -57,7 +64,7 @@ public class MethodBuilder {
         this.arguments.add(argument);
         return this;
     }
-    
+
     /**
      * Add arguments
      * 
@@ -68,7 +75,7 @@ public class MethodBuilder {
         this.arguments.addAll(Arrays.asList(arguments));
         return this;
     }
-    
+
     /**
      * Build a method
      * 
@@ -76,9 +83,10 @@ public class MethodBuilder {
      */
     public Method build() {
         return ReflectMethodUtil.getMethod(
-                methodName, 
-                clazz, 
-                arguments.toArray(new Class<?>[arguments.size()]));
+            methodName, 
+            clazz, 
+            arguments.toArray(new Class<?>[arguments.size()])
+        );
     }
-    
+
 }
