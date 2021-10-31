@@ -42,13 +42,20 @@ public final class Asserts {
     public static <T> AssertThat<T> assertThat(T actual) {
         return new AssertThat<>(actual);
     }
-
+    
     public static <T> AssertThat<T> assertThat(AssertSupplier<T> actualSuppler) {
         return new AssertThat<>(actualSuppler);
     }
 
-    public static AssertThat<Throwable> assertThatThrows(AssertSupplier<Throwable> actualSuppler) {
-        return new AssertThat<>(actualSuppler);
+    public static <T> AssertThat<T> assertThatFrom(AssertSupplier<T> actualSuppler) {
+        return assertThat(actualSuppler);
+    }
+
+    public static AssertThat<Throwable> assertThatThrows(AssertApplier actualSuppler) {
+        return new AssertThat<>(() -> {
+            actualSuppler.apply();
+            return null;
+        });
     }
 
     public static Throwable assertThrows(AssertApplier func) {

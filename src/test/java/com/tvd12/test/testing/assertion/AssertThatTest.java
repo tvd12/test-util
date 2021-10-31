@@ -94,6 +94,11 @@ public class AssertThatTest extends BaseTest {
 	}
 	
 	@Test
+    public void isEqualsSuccessWithAssertThatFrom() {
+        Asserts.assertThatFrom(() -> 1).isEqualsTo(1);
+    }
+	
+	@Test
 	public void isEqualsSuccessWithValue() {
 		Asserts.assertThat(1).isEqualsTo(1);
 	}

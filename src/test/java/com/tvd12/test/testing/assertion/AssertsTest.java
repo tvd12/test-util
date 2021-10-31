@@ -247,6 +247,17 @@ public class AssertsTest extends BaseTest {
 	    assertThatThrows.isEqualsTo(e);
 	}
 	
+	@Test
+    public void assertThatNotThrowsTest() {
+        // given
+        // when
+        AssertThat<Throwable> assertThatThrows = Asserts.assertThatThrows(() -> {
+        });
+        
+        // then
+        assertThatThrows.isNull();
+    }
+	
 	public static class A1 {
 		public A2 a2 = new A2();
 	}
