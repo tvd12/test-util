@@ -4,7 +4,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.tvd12/test-util/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.tvd12/test-util)
 [![Javadocs](https://www.javadoc.io/badge/com.tvd12/test-util.svg)](https://www.javadoc.io/doc/com.tvd12/test-util)
 
-# Synopsis
+# Synopsis <img src="https://github.com/tvd12/test-util/blob/master/logo.png" width="64" />
 
 This project support for: 
 - testing private, protected, package access and public method
