@@ -1,5 +1,6 @@
 package com.tvd12.test.testing.assertion;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -247,7 +248,7 @@ public class AssertsTest extends BaseTest {
 	    assertThatThrows.isEqualsTo(e);
 	}
 	
-	@Test
+	@Test(expectedExceptions = AssertionError.class)
     public void assertThatNotThrowsTest() {
         // given
         // when
@@ -257,6 +258,27 @@ public class AssertsTest extends BaseTest {
         // then
         assertThatThrows.isNull();
     }
+	
+	@Test
+	public void assertThrowsAndEqualsType() {
+	   Asserts.assertThatThrows(() -> {
+	       throw new IOException("just test");
+	   }).isEqualsType(IOException.class); 
+	}
+	
+	@Test
+	public void isEqualsToExceptionTest() {
+	    // given
+	    Exception e = new Exception("test");
+	    
+	    // when
+	    AssertThat<?> assertThat = Asserts.assertThat(() -> {
+	        throw e;
+	    });
+	    
+	    // then
+	    assertThat.isEqualsTo(e, true);
+	}
 	
 	public static class A1 {
 		public A2 a2 = new A2();
