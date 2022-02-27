@@ -206,7 +206,7 @@ public final class Asserts {
         }
         if (expectedType.isArray()) {
             throw new AssertionError(
-                "expected (array):\n" + toString(expected) + "\nbut was (not array): " + toString(actual)
+                "expected (array):\n" + toString(expected) + "\nbut was (not array):\n" + toString(actual)
             );
         } else if (actualType.isArray()) {
             throw new AssertionError(
@@ -255,8 +255,8 @@ public final class Asserts {
             throw e;
         } catch (Exception e) {
             throw new AssertionError(
-                "expected (" + expectedType.getSimpleName() + "): " + expected + 
-                " but was (" + actualType.getSimpleName() + "): " + actual,
+                "\nexpected:\n" + toString(expectedType, expected) + 
+                "\nbut was:\n" + toString(actualType, actual),
                 e
             );
         }

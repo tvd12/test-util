@@ -58,6 +58,15 @@ public class AssertsMessageTest {
     }
     
     @Test
+    public void testEquals() {
+        try {
+            Asserts.assertEquals(new A("a", 1), new A("a", 2));
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Test
     public void testEqualsType() {
         try {
             Asserts.assertEqualsType(new A("a", 1), B.class);
