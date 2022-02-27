@@ -52,10 +52,12 @@ public final class Asserts {
     }
 
     public static AssertThat<Throwable> assertThatThrows(AssertApplier actualSuppler) {
-        return new AssertThat<>(() -> {
+        try {
             actualSuppler.apply();
-            return null;
-        });
+        } catch (Throwable e) {
+            return new AssertThat<>(e);
+        }
+        throw new AssertionError("there is no exception");
     }
 
     public static Throwable assertThrows(AssertApplier func) {
@@ -127,16 +129,19 @@ public final class Asserts {
         } catch (AssertionError e) {
             return true;
         }
-        throw new AssertionError(expected + " is equal to: " + actual);
+        throw new AssertionError(
+            "\nexpected:\n" + toString(expected) + "\nis not equal to:\n" + toString(actual) +
+            "\nbut equal"
+        );
     }
 
     public static boolean assertEqualsType(Object actual, Class<?> expectedType) {
         if (actual == null) {
-            throw new AssertionError("expected: " + expectedType.getName() + " but was: null");
+            throw new AssertionError("\nexpected:\n" + expectedType.getName() + "\nbut was: null");
         }
         if (actual.getClass() != expectedType) {
             throw new AssertionError(
-                "expected: " + expectedType.getName() + " but was: " + actual.getClass().getName()
+                "\nexpected:\n" + expectedType.getName() + "\nbut was:\n" + actual.getClass().getName()
             );
         }
         return true;
@@ -157,10 +162,10 @@ public final class Asserts {
         }
         if (expected != null) {
             if (actual == null) {
-                throw new AssertionError("expected: " + expected + " but was: " + actual);
+                throw new AssertionError("expected: " + toString(expected) + " but was: " + toString(actual));
             }
         } else {
-            throw new AssertionError("expected: " + expected + " but was: " + actual);
+            throw new AssertionError("expected: " + toString(expected) + " but was: " + toString(actual));
         }
 
         Class<?> expectedType = expected.getClass();
@@ -168,7 +173,7 @@ public final class Asserts {
         if (mustEqualsType) {
             if (!expectedType.equals(actualType)) {
                 throw new AssertionError(
-                    "expected type: " + expectedType.getName() + " but was: " + actualType.getName()
+                    "\nexpected:\n" + toString(expected) + "\nbut was:\n" + toString(actual)
                 );
             }
         }
@@ -182,17 +187,17 @@ public final class Asserts {
             Number expectedNumber = (Number) expected;
             Number actualNumber = (Number) actual;
             if (expectedNumber.doubleValue() != actualNumber.doubleValue()) {
-                throw new AssertionError("expected: " + expected + " but was: " + actual);
+                throw new AssertionError("expected: " + toString(expected) + " but was: " + toString(actual));
             }
             return true;
         }
         if (Number.class.isAssignableFrom(expectedType)) {
             throw new AssertionError(
-                "expected (number): " + expected + " but was (not number): " + actual
+                "expected (number): " + toString(expected) + " but was (not number): " + toString(actual)
             );
         } else if (Number.class.isAssignableFrom(actualType)) {
             throw new AssertionError(
-                "expected (not number): " + expected + " but was (number): " + actual
+                "expected (not number): " + toString(expected) + " but was (number): " + toString(actual)
             );
         }
 
@@ -201,11 +206,11 @@ public final class Asserts {
         }
         if (expectedType.isArray()) {
             throw new AssertionError(
-                "expected (array): " + expected + " but was (not array): " + actual
+                "expected (array):\n" + toString(expected) + "\nbut was (not array):\n" + toString(actual)
             );
         } else if (actualType.isArray()) {
             throw new AssertionError(
-                "expected (not array): " + expected + " but was (array): " + actual
+                "expected (not array):\n" + toString(expected) + "\nbut was (array):\n" + toString(actual)
             );
         }
 
@@ -220,11 +225,11 @@ public final class Asserts {
         }
         if (Collection.class.isAssignableFrom(expectedType)) {
             throw new AssertionError(
-                "expected (collection): " + expected + " but was (not collection): " + actual
+                "expected (collection):\n" + toString(expected) + "\nbut was (not collection):\n" + toString(actual)
             );
         } else if (Collection.class.isAssignableFrom(actualType)) {
             throw new AssertionError(
-                "expected (not collection): " + expected + " but was (collection): " + actual
+                "expected (not collection):\n" + toString(expected) + "\nbut was (collection):\n" + toString(actual)
             );
         }
 
@@ -234,15 +239,15 @@ public final class Asserts {
         }
         if (Map.class.isAssignableFrom(expectedType)) {
             throw new AssertionError(
-                "expected (map): " + expected + " but was (not map): " + actual
+                "expected (map):\n" + toString(expected) + "\nbut was (not map):\n" + toString(actual)
             );
         } else if (Map.class.isAssignableFrom(actualType)) {
             throw new AssertionError(
-                "expected (not map): " + expected + " but was (map): " + actual
+                "expected (not map):\n" + toString(expected) + "\nbut was (map):\n" + toString(actual)
             );
         }
         if (containsEqualsMethod(expectedType) || containsEqualsMethod(actualType)) {
-            throw new AssertionError("expected: " + expected + " but was: " + actual);
+            throw new AssertionError("expected:\n" + toString(expected) + "\nbut was:\n" + toString(actual));
         }
         try {
             return assertEqualsObjects(actual, expected, mustEqualsType);
@@ -250,9 +255,10 @@ public final class Asserts {
             throw e;
         } catch (Exception e) {
             throw new AssertionError(
-                "expected (" + expectedType.getSimpleName() + "): " 
-                    + expected + " but was ("
-                    + actualType.getSimpleName() + "): " + actual);
+                "\nexpected:\n" + toString(expectedType, expected) + 
+                "\nbut was:\n" + toString(actualType, actual),
+                e
+            );
         }
     }
 
@@ -265,7 +271,8 @@ public final class Asserts {
         int actualLength = Array.getLength(actual);
         if (expectedLength != actualLength) {
             throw new AssertionError(
-                "expected array.length: " + expectedLength + " but was: " + actualLength
+                "\nexpected (size = " + expectedLength + "):\n" + arrayToString(expected) +
+                "\nbut was: (size = " + actualLength + "):\n" + arrayToString(actual)
             );
         }
         for (int i = 0; i < expectedLength; ++i) {
@@ -275,8 +282,11 @@ public final class Asserts {
                 assertEquals(actualItem, expectedItem, mustEqualsType);
             } catch (AssertionError e) {
                 throw new AssertionError(
-                    "expected: " + expectedItem + " but was: " + actualItem + "\nexpect: "
-                        + arrayToString(expected) + "\nactual: " + arrayToString(actual));
+                    "expected: " + toString(expectedItem) + " but was: " + toString(actualItem) + 
+                    "\nexpect:\n" + arrayToString(expected) +
+                    "\nactual:\n" + arrayToString(actual),
+                    e
+                );
             }
         }
         return true;
@@ -291,7 +301,8 @@ public final class Asserts {
         int actualLength = actual.size();
         if (expectedLength != actualLength) {
             throw new AssertionError(
-                "expected collection.size: " + expectedLength + " but was: " + actualLength
+                "\nexpected (size = " + expectedLength + "):\n" + toString(expected) +
+                "\nbut was: (size = " + actualLength + "):\n" + toString(actual)
             );
         }
         for (int i = 0; i < expectedLength; ++i) {
@@ -300,15 +311,14 @@ public final class Asserts {
             try {
                 assertEquals(actualItem, expectedItem, mustEqualsType);
             } catch (AssertionError e) {
-                StringBuilder builder = new StringBuilder().append("expected: " + expectedItem);
-                if (expectedItem != null) {
-                    builder.append(" (" + expectedItem.getClass().getSimpleName() + ")");
-                }
-                builder.append(" but was: " + actualItem);
-                if (actualItem != null) {
-                    builder.append(" (" + actual.getClass().getSimpleName() + ")");
-                }
-                throw new AssertionError(builder + "\nexpect: " + expected + "\nactual: " + actual);
+                StringBuilder builder = new StringBuilder()
+                    .append("expected: " + toString(expectedItem))
+                    .append(" but was: " + toString(actualItem));
+                throw new AssertionError(
+                    builder + "\nexpect:\n" + toString(expected) + 
+                    "\nactual:\n" + toString(actual), 
+                    e
+                );
             }
         }
         return true;
@@ -319,21 +329,30 @@ public final class Asserts {
         Map expected,
         boolean mustEqualsType
     ) {
-        return assertEqualsMaps(actual, expected, mustEqualsType, "map", "key");
+        return assertEqualsMaps(
+            actual.getClass(),
+            expected.getClass(),
+            actual,
+            expected,
+            mustEqualsType,
+            "key"
+        );
     }
 
     private static boolean assertEqualsMaps(
+        Class<?> actualType,
+        Class<?> expectedType,
         Map actual, 
         Map expected, 
         boolean mustEqualsType, 
-        String mapType,
         String keyType
     ) {
         int expectedLength = expected.size();
         int actualLength = actual.size();
         if (expectedLength != actualLength) {
             throw new AssertionError(
-                "expected " + mapType + ".size: " + expectedLength + " but was: " + actualLength
+                "\nexpected (" + "size = " + expectedLength +  "):\n" + toString(expectedType, expected) +
+                "\nbut was (" + "size = " + actualLength + "):\n" + toString(actualType, actual)
             );
         }
         List<Entry> expectedEntries = new ArrayList<>(expected.entrySet());
@@ -345,15 +364,20 @@ public final class Asserts {
                 assertEquals(actualEntry.getKey(), expectedEntry.getKey(), mustEqualsType);
             } catch (AssertionError e) {
                 throw new AssertionError(
-                    "expected " + keyType + ": " + expectedEntry.getKey() + " but was: "
-                        + actualEntry.getKey() + "\nexpect: " + expected + "\nactual: " + actual);
+                    "expected " + keyType + ": " + toString(expectedEntry.getKey()) + 
+                    " but was: " + toString(actualEntry.getKey()) + 
+                    "\nexpected:\n" + toString(expectedType, expected) + "\nactual:\n" + toString(actualType, actual),
+                    e
+                );
             }
             try {
                 assertEquals(actualEntry.getValue(), expectedEntry.getValue(), mustEqualsType);
             } catch (AssertionError e) {
                 throw new AssertionError(
-                    "expected value: " + expectedEntry.getValue() + " but was: "
-                        + actualEntry.getValue() + "\nexpect: " + expected + "\nactual: " + actual
+                    "expected value: " + toString(expectedEntry.getValue()) + 
+                    " but was: " + toString(actualEntry.getValue()) + 
+                    "\nexpected:\n" + toString(expectedType, expected) + "\nactual:\n" + toString(actualType, actual),
+                    e
                 );
             }
         }
@@ -387,19 +411,28 @@ public final class Asserts {
             }
             actualType = actualType.getSuperclass();
         }
-        return assertEqualsMaps(actualMap, expectedMap, mustEqualsType, "object", "field");
+        return assertEqualsMaps(
+            actual.getClass(),
+            expected.getClass(),
+            actualMap,
+            expectedMap,
+            mustEqualsType,
+            "field"
+        );
     }
 
     private static String arrayToString(Object array) {
         int length = Array.getLength(array);
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder()
+            .append(array.getClass().getTypeName())
+            .append("{");
         for (int i = 0; i < length; ++i) {
-            builder.append(Array.get(array, i));
+            builder.append(toString(Array.get(array, i)));
             if (i < length - 1) {
                 builder.append(", ");
             }
         }
-        return builder.toString();
+        return builder.append("}").toString();
     }
 
     private static boolean containsEqualsMethod(Class<?> clazz) {
@@ -409,5 +442,20 @@ public final class Asserts {
             return false;
         }
         return true;
+    }
+    
+    private static String toString(Object value) {
+        if (value == null) {
+            return "null";
+        }
+        return toString(value.getClass(), value);
+    }
+    
+    private static String toString(Class<?> type, Object value) {
+        String str = String.valueOf(value);
+        if (str.contains(type.getSimpleName())) {
+            return str;
+        }
+        return type.getSimpleName() + "(" + str + ")";
     }
 }

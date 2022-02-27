@@ -25,7 +25,7 @@
 
 	<module name="LineLength">
 		<property name="fileExtensions" value="java" />
-		<property name="max" value="100" />
+		<property name="max" value="120" />
 		<property name="ignorePattern"
 			value="^package.*|^import.*|a href|href|http://|https://|ftp://" />
 	</module>
@@ -312,7 +312,7 @@
 			<property name="option" value="NL" />
 			<property name="tokens"
 				value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR,
-                    LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF,
+                    LT, MINUS, MOD, NOT_EQUAL, QUESTION, SL, SR, STAR, METHOD_REF,
                     TYPE_EXTENSION_AND " />
 		</module>
 		<module name="AnnotationLocation">
