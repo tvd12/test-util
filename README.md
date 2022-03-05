@@ -110,7 +110,7 @@ You need create file `AllTests.tng.xml` in your `src/test/resources` folder with
 ### Gradle
 
 ```groovy
-testImplementation 'com.tvd12:test-util:1.1.3'
+testImplementation 'com.tvd12:test-util:1.1.4'
 ```
 
 # API Reference
