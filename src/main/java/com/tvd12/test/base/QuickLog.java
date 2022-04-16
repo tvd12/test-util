@@ -92,5 +92,4 @@ public class QuickLog {
         StackTraceElement[] stackTrace = thread.getStackTrace();
         return StackTraceUtil.getCallerInfo(stackTrace, 4);
     }
-
 }

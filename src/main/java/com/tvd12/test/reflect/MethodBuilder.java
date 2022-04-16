@@ -88,5 +88,4 @@ public class MethodBuilder {
             arguments.toArray(new Class<?>[0])
         );
     }
-
 }

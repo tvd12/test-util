@@ -173,5 +173,4 @@ public class MethodInvoker {
         Object answer = invoke();
         return type.cast(answer);
     }
-
 }

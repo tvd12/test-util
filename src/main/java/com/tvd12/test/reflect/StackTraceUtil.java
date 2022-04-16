@@ -33,5 +33,4 @@ public final class StackTraceUtil {
         String callerSimpleName = ClassUtil.shortClassName(callerClassName);
         return callerSimpleName + ":" + element.getLineNumber();
     }
-
 }
