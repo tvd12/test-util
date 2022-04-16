@@ -30,7 +30,7 @@ public class MethodUtilTest extends BaseTest {
     public void testInvokeMethodWithMethodInvalidCase() {
         Method method = MethodUtil.getMethod("doSomeThing1", ClassA.class, Integer.class);
         method.setAccessible(false);
-        MethodUtil.invokeMethod(method, new ClassA(), new Integer(1));
+        MethodUtil.invokeMethod(method, new ClassA(), 1);
     }
     
     @Test(expectedExceptions = {IllegalStateException.class})
@@ -44,7 +44,7 @@ public class MethodUtilTest extends BaseTest {
     public void testInvokeMethodWithMethodInvalidCase2() {
         Method method = MethodUtil.getMethod("doSomeThing1", ClassA.class, Integer.class);
         method.setAccessible(false);
-        MethodUtil.invokeMethod(method, new Object(), new Integer(1));
+        MethodUtil.invokeMethod(method, new Object(), 1);
     }
     
     @Test
@@ -58,24 +58,24 @@ public class MethodUtilTest extends BaseTest {
     @Test
     public void testInvokeMethodByNameCase() {
         MethodUtil.invokeMethod("doSomeThing0", new ClassB());
-        int value = (int) MethodUtil.invokeMethod("doSomeThing1", new ClassA(), 10);
+        int value = MethodUtil.invokeMethod("doSomeThing1", new ClassA(), 10);
         assertEquals(10, value);
     }
     
     @Test
     public void testInvokeMethodCase() {
-        Method method = MethodUtil.getMethod("doSomeThing1", new ClassA(), new Integer(10));
+        Method method = MethodUtil.getMethod("doSomeThing1", new ClassA(), 1);
         assertNotNull(method);
-        int value = (int) MethodUtil.invokeMethod(method, new ClassA(), 10);
+        int value = MethodUtil.invokeMethod(method, new ClassA(), 10);
         assertEquals(10, value);
     }
     
     @Test
     public void testCallStaticMethodCase() {
         MethodUtil.invokeMethod("printSomeThing", new ClassA());
-        MethodUtil.invokeStaticMethod("printSomeThing", ClassA.class);
+        assert MethodUtil.invokeStaticMethod("printSomeThing", ClassA.class) == null;
         Method method = MethodUtil.getMethod("printSomeThing1", ClassA.class, String.class);
-        MethodUtil.invokeStaticMethod(method, "mobile phone");
+        assert MethodUtil.invokeStaticMethod(method, "mobile phone") == null;
     }
     
     @Test
@@ -101,7 +101,7 @@ public class MethodUtilTest extends BaseTest {
     
     @Test(expectedExceptions = {IllegalStateException.class})
     public void invokeConstructorInvalidCaseTest() {
-        MethodUtil.invokeConstructor(ClassC.class, new Integer(1));
+        MethodUtil.invokeConstructor(ClassC.class, 1);
     }
     
     @Test(expectedExceptions = {IllegalStateException.class})

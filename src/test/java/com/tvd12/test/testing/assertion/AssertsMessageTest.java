@@ -172,14 +172,14 @@ public class AssertsMessageTest {
             "hello", 
             1,
             new A("1", 1),
-            Arrays.asList(new A("2", 2)),
+            Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         B b = new B(
             "hello", 
             1,
             new A("1", 1),
-            Arrays.asList(new A("2", 2)),
+            Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 2))
         );
         try {
@@ -195,14 +195,14 @@ public class AssertsMessageTest {
             "hello", 
             1,
             new A("1", 1),
-            Arrays.asList(new A("2", 2)),
+            Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         B b = new B(
             "hello", 
             1,
             new A("2", 1),
-            Arrays.asList(new A("2", 2)),
+            Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         try {
@@ -218,14 +218,14 @@ public class AssertsMessageTest {
             "hello", 
             1,
             new A("1", 1),
-            Arrays.asList(new A("2", 2)),
+            Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         B b = new B(
             "hello", 
             1,
             null,
-            Arrays.asList(new A("2", 2)),
+            Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         try {
@@ -241,14 +241,14 @@ public class AssertsMessageTest {
             "hello", 
             1,
             new A("1", 1),
-            Arrays.asList(new A("2", 2)),
+            Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         B b = new B(
             "hello", 
             1,
             new A("1", 1),
-            Arrays.asList(new A("2", 2)),
+            Collections.singletonList(new A("2", 2)),
             Collections.singletonMap(2, new A("3", 3))
         );
         try {
@@ -263,7 +263,7 @@ public class AssertsMessageTest {
         try {
             Asserts.assertEquals(
                 Arrays.asList(1, 2),
-                Arrays.asList(1)
+                Collections.singletonList(1)
             );
         } catch (Throwable e) {
             e.printStackTrace();

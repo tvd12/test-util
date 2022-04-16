@@ -20,5 +20,4 @@ public class ClassUtilTest extends BaseTest {
 		assertEquals(ClassUtil.shortClassName("hello.A"), "hello.A");
 		assertEquals(ClassUtil.shortClassName("foo.bar.A"), "bar.A");
 	}
-	
 }

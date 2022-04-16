@@ -13,7 +13,7 @@ import com.tvd12.test.reflect.ParameterTypeUtil;
 
 public class ParameterTypeUtilTest extends BaseTest {
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"rawtypes" })
     @Test
     public void test() {
         String str = ParameterTypeUtil.toString((Class[])null);
@@ -23,7 +23,7 @@ public class ParameterTypeUtilTest extends BaseTest {
         
         str = ParameterTypeUtil.toString((List<Class<?>>)null);
         assertEquals(str, "");
-        str = ParameterTypeUtil.toString((List)Lists.newArrayList(Class.class));
+        str = ParameterTypeUtil.toString(Lists.newArrayList(Class.class));
         assertNotNull(str);
     }
     
@@ -31,5 +31,4 @@ public class ParameterTypeUtilTest extends BaseTest {
     public Class<?> getTestClass() {
         return ParameterTypeUtil.class;
     }
-    
 }

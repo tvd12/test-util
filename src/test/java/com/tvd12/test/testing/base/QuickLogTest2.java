@@ -10,33 +10,29 @@ public class QuickLogTest2 extends BaseTest {
     public void test() {
         error("");
         try {
-        		a();
+            a();
+        } catch (Exception e) {
+            error("how?", e);
         }
-        catch (Exception e) {
-        		error("how?", e);
-		}
-        
+
         info("");
         info("", new Exception());
-        
+
     }
-    
+
     public void a() {
-    		try {
-    			b();
-    		}
-    		catch (Exception e) {
-    			throw new IllegalStateException("can be", e);
-		}
+        try {
+            b();
+        } catch (Exception e) {
+            throw new IllegalStateException("can be", e);
+        }
     }
-    
+
     public void b() {
-    		try {
-    			throw new IllegalArgumentException("no one");
-    		}
-    		catch (Exception e) {
-    			throw new RuntimeException("error runtime", e);
-		}
+        try {
+            throw new IllegalArgumentException("no one");
+        } catch (Exception e) {
+            throw new RuntimeException("error runtime", e);
+        }
     }
-    
 }

@@ -79,7 +79,7 @@ public class Performance {
         return this;
     }
 
-    private void testInSyncMode(Script script) throws Exception {
+    private void testInSyncMode(Script script) {
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < loopCount; ++i) {
             script.execute();

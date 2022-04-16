@@ -86,7 +86,7 @@ public class NetUtil {
      * @author tvd12
      *
      */
-    public static enum TransportType {
+    public enum TransportType {
         TCP,
         UDP
     }

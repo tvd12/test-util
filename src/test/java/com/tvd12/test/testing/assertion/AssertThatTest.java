@@ -2,7 +2,6 @@ package com.tvd12.test.testing.assertion;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
@@ -61,9 +60,7 @@ public class AssertThatTest extends BaseTest {
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void testFailDueToNotAccept() {
-		Asserts.assertThat(() -> {
-			return 1;
-		})
+		Asserts.assertThat(() -> 1)
 		.test(it -> it.equals(2));
 	}
 	
@@ -179,9 +176,7 @@ public class AssertThatTest extends BaseTest {
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void testExceptionFailDueToNoException() {
-		Asserts.assertThat(() -> {
-			return 1;
-		})
+		Asserts.assertThat(() -> 1)
 		.testException(it -> it.getClass() == RuntimeException.class);
 	}
 	
@@ -254,7 +249,7 @@ public class AssertThatTest extends BaseTest {
     
     @Test(expectedExceptions = AssertionError.class)
     public void assertEmptyListButNot() {
-        Asserts.assertThat(Arrays.asList(1)).isEmpty();
+        Asserts.assertThat(Collections.singletonList(1)).isEmpty();
     }
     
     @Test(expectedExceptions = AssertionError.class)

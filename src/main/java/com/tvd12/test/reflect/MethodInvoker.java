@@ -29,7 +29,7 @@ public class MethodInvoker {
     private String methodName;
 
     // list of parameters
-    private List<Pair<Class, Object>> params;
+    private final List<Pair<Class, Object>> params;
 
     // constructor
     public MethodInvoker() {
@@ -96,7 +96,7 @@ public class MethodInvoker {
      * @return this pointer
      */
     public MethodInvoker param(Class<?> paramType, Object value) {
-        this.params.add(new Pair<>((Class) paramType, value));
+        this.params.add(new Pair<>(paramType, value));
         return this;
     }
 

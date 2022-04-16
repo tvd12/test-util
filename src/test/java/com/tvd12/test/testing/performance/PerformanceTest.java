@@ -10,7 +10,7 @@ public class PerformanceTest extends BaseTest {
 
     @Test
     public void test() {
-        Performance.create()
+        long time = Performance.create()
             .loop(1000000000)
             .test(new Script() {
                 @Override
@@ -21,6 +21,7 @@ public class PerformanceTest extends BaseTest {
                 }
             })
             .getTime();
+        assert time >= 0;
     }
     
     @Test
@@ -28,14 +29,11 @@ public class PerformanceTest extends BaseTest {
         long time = Performance.create()
             .loop(10000)
             .threadCount(100)
-            .test(new Script() {
-                @Override
-                public void execute() {
-                    try {
-						Thread.sleep(1);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+            .test(() -> {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             })
             .getTime();
@@ -44,7 +42,7 @@ public class PerformanceTest extends BaseTest {
     
     @Test(expectedExceptions = IllegalStateException.class)
     public void testExceptionCase() {
-        Performance.create()
+        long time = Performance.create()
             .loop(1000000000)
             .test(new Script() {
                 @Override
@@ -53,6 +51,6 @@ public class PerformanceTest extends BaseTest {
                 }
             })
             .getTime();
+        assert time >= 0;
     }
-    
 }

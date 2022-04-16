@@ -8,7 +8,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -25,18 +24,16 @@ public final class Asserts {
     
     private Asserts() {}
 
-    public static boolean assertNull(Object actual) {
+    public static void assertNull(Object actual) {
         if (actual != null) {
             throw new AssertionError("expected: null but was: " + actual);
         }
-        return true;
     }
 
-    public static boolean assertNotNull(Object actual) {
+    public static void assertNotNull(Object actual) {
         if (actual == null) {
             throw new AssertionError("expected: not null but was: null");
         }
-        return true;
     }
 
     public static <T> AssertThat<T> assertThat(T actual) {
@@ -69,57 +66,53 @@ public final class Asserts {
         throw new AssertionError("there is no exception");
     }
 
-    public static boolean assertTrue(boolean condition) {
+    public static void assertTrue(boolean condition) {
         if (!condition) {
             throw new AssertionError("expected: true but was: false");
         }
-        return true;
     }
 
-    public static boolean assertFalse(boolean condition) {
+    public static void assertFalse(boolean condition) {
         if (condition) {
             throw new AssertionError("expected: false but was: true");
         }
-        return true;
     }
 
-    public static boolean assertZero(Number value) {
-        return assertEquals(value.longValue(), 0L);
+    public static void assertZero(Number value) {
+        assertEquals(value.longValue(), 0L);
     }
 
-    public static boolean assertZero(BigInteger value) {
-        return assertEquals(value, BigInteger.ZERO);
+    public static void assertZero(BigInteger value) {
+        assertEquals(value, BigInteger.ZERO);
     }
 
-    public static boolean assertZero(BigDecimal value) {
-        return assertEquals(value, BigDecimal.ZERO);
+    public static void assertZero(BigDecimal value) {
+        assertEquals(value, BigDecimal.ZERO);
     }
 
-    public static boolean assertEmpty(Iterable iterable) {
+    public static void assertEmpty(Iterable iterable) {
         int size = 0;
-        Iterator iterator = iterable.iterator();
-        while (iterator.hasNext()) {
+        for (Object ignored : iterable) {
             ++size;
-            iterator.next();
         }
         if (size == 0) {
-            return true;
+            return;
         }
         throw new AssertionError("expected: empty but was: " + size);
     }
 
-    public static boolean assertEmpty(Map map) {
+    public static void assertEmpty(Map map) {
         if (map.isEmpty()) {
-            return true;
+            return;
         }
         throw new AssertionError("expected: empty but was: " + map.size());
     }
 
-    public static boolean assertNotEquals(Object actual, Object expected) {
-        return assertNotEquals(actual, expected, true);
+    public static void assertNotEquals(Object actual, Object expected) {
+        assertNotEquals(actual, expected, true);
     }
 
-    public static boolean assertNotEquals(
+    public static void assertNotEquals(
         Object actual, 
         Object expected, 
         boolean mustEqualsType
@@ -127,7 +120,7 @@ public final class Asserts {
         try {
             assertEquals(actual, expected, mustEqualsType);
         } catch (AssertionError e) {
-            return true;
+            return;
         }
         throw new AssertionError(
             "\nexpected:\n" + toString(expected) + "\nis not equal to:\n" + toString(actual) +
@@ -135,7 +128,7 @@ public final class Asserts {
         );
     }
 
-    public static boolean assertEqualsType(Object actual, Class<?> expectedType) {
+    public static void assertEqualsType(Object actual, Class<?> expectedType) {
         if (actual == null) {
             throw new AssertionError("\nexpected:\n" + expectedType.getName() + "\nbut was: null");
         }
@@ -144,7 +137,6 @@ public final class Asserts {
                 "\nexpected:\n" + expectedType.getName() + "\nbut was:\n" + actual.getClass().getName()
             );
         }
-        return true;
     }
 
     public static boolean assertEquals(Object actual, Object expected) {
@@ -162,10 +154,10 @@ public final class Asserts {
         }
         if (expected != null) {
             if (actual == null) {
-                throw new AssertionError("expected: " + toString(expected) + " but was: " + toString(actual));
+                throw new AssertionError("expected: " + toString(expected) + " but was: null");
             }
         } else {
-            throw new AssertionError("expected: " + toString(expected) + " but was: " + toString(actual));
+            throw new AssertionError("expected: null but was: " + toString(actual));
         }
 
         Class<?> expectedType = expected.getClass();
@@ -251,8 +243,6 @@ public final class Asserts {
         }
         try {
             return assertEqualsObjects(actual, expected, mustEqualsType);
-        } catch (AssertionError e) {
-            throw e;
         } catch (Exception e) {
             throw new AssertionError(
                 "\nexpected:\n" + toString(expectedType, expected) + 
@@ -311,9 +301,8 @@ public final class Asserts {
             try {
                 assertEquals(actualItem, expectedItem, mustEqualsType);
             } catch (AssertionError e) {
-                StringBuilder builder = new StringBuilder()
-                    .append("expected: " + toString(expectedItem))
-                    .append(" but was: " + toString(actualItem));
+                String builder = "expected: " + toString(expectedItem) +
+                    " but was: " + toString(actualItem);
                 throw new AssertionError(
                     builder + "\nexpect:\n" + toString(expected) + 
                     "\nactual:\n" + toString(actual), 

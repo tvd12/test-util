@@ -12,5 +12,4 @@ public class PairTest extends BaseTest {
 		Pair<String, String> pair = new Pair<String, String>("1", "a");
 		assert pair.setValue("b").equals("a");
 	}
-	
 }

@@ -24,7 +24,7 @@ public final class FieldUtil {
         if (clazz.equals(Object.class)) {
             return null;
         }
-        Field field = null;
+        Field field;
         try {
             field = clazz.getDeclaredField(fieldName);
         } catch (NoSuchFieldException e) {
@@ -42,8 +42,7 @@ public final class FieldUtil {
      * @return the field's value
      */
     public static <V> V getFieldValue(Object object, String fieldName) {
-        V value = getFieldValue(object, fieldName, null);
-        return value;
+        return getFieldValue(object, fieldName, null);
     }
 
     /**
@@ -111,8 +110,7 @@ public final class FieldUtil {
      * @return the field's value
      */
     public static <V> V getStaticFieldValue(Class<?> clazz, String fieldName) {
-        V value = getStaticFieldValue(clazz, fieldName, null);
-        return value;
+        return getStaticFieldValue(clazz, fieldName, null);
     }
 
     /**
