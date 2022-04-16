@@ -18,5 +18,4 @@ public class StackTraceUtilTest extends BaseTest {
 	public void test() {
 		assertEquals(StackTraceUtil.getCallerInfo(new StackTraceElement[0], 4), "[Unknown]");
 	}
-	
 }

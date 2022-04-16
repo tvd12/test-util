@@ -25,8 +25,6 @@ public final class ClassUtil {
             return className;
         }
         String acceptPackageName = packageName.substring(acceptIndex + 1, lastIndex);
-        String accept = acceptPackageName + DOT + classSimpleName;
-        return accept;
+        return acceptPackageName + DOT + classSimpleName;
     }
-
 }

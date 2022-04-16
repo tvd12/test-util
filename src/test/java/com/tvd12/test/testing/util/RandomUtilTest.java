@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
 
 import org.testng.annotations.Test;
 
@@ -78,81 +79,81 @@ public class RandomUtilTest extends BaseTest {
 	@Test
 	public void randomPrimitiveArray() {
 		Asserts.assertThat(RandomUtil.randomShortBooleanArray())
-			.test(it -> ((boolean[])it).length == 8);
+			.test(it -> it.length == 8);
 		Asserts.assertThat(RandomUtil.randomShortByteArray())
-			.test(it -> ((byte[])it).length == 8);
+			.test(it -> it.length == 8);
 		Asserts.assertThat(RandomUtil.randomShortCharArray())
-			.test(it -> ((char[])it).length == 8);
+			.test(it -> it.length == 8);
 		Asserts.assertThat(RandomUtil.randomShortDoubleArray())
-			.test(it -> ((double[])it).length == 8);
+			.test(it -> it.length == 8);
 		Asserts.assertThat(RandomUtil.randomShortFloatArray())
-			.test(it -> ((float[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomShortIntArray())
-			.test(it -> ((int[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomShortLongArray())
-			.test(it -> ((long[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomShortShortArray())
-			.test(it -> ((short[])it).length == 8);
+			.test(it -> (it).length == 8);
 	}
 	
 	@Test
 	public void randomWrapperArray() {
 		Asserts.assertThat(RandomUtil.randomArray(8, Boolean.class))
-			.test(it -> ((Boolean[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomArray(8, Byte.class))
-			.test(it -> ((Byte[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomArray(8, Character.class))
-			.test(it -> ((Character[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomArray(8, Double.class))
-			.test(it -> ((Double[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomArray(8, Float.class))
-			.test(it -> ((Float[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomArray(8, Integer.class))
-			.test(it -> ((Integer[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomArray(8, Long.class))
-			.test(it -> ((Long[])it).length == 8);
+			.test(it -> (it).length == 8);
 		Asserts.assertThat(RandomUtil.randomArray(8, Short.class))
-			.test(it -> ((Short[])it).length == 8);
+			.test(it -> (it).length == 8);
 	}
 	
 	@Test
 	public void randomWrapperListByType() {
 		Asserts.assertThat(RandomUtil.randomList(8, Boolean.class))
-			.test(it -> ((List<Boolean>)it).size() == 8);
+			.test(it -> it.size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, Byte.class))
-			.test(it -> ((List<Byte>)it).size() == 8);
+			.test(it -> it.size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, Character.class))
-			.test(it -> ((List<Character>)it).size() == 8);
+			.test(it -> it.size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, Double.class))
-			.test(it -> ((List<Double>)it).size() == 8);
+			.test(it -> it.size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, Float.class))
-			.test(it -> ((List<Float>)it).size() == 8);
+			.test(it -> it.size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, Integer.class))
-			.test(it -> ((List<Integer>)it).size() == 8);
+			.test(it -> (it).size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, Long.class))
-			.test(it -> ((List<Long>)it).size() == 8);
+			.test(it -> (it).size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, Short.class))
-			.test(it -> ((List<Short>)it).size() == 8);
+			.test(it -> (it).size() == 8);
 	}
 	
 	@Test
 	public void randomWrapperListByRandom() {
-		Asserts.assertThat(RandomUtil.randomList(8, it -> it.nextBoolean()))
-			.test(it -> ((List<Boolean>)it).size() == 8);
+		Asserts.assertThat(RandomUtil.randomList(8, Random::nextBoolean))
+			.test(it -> (it).size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, RandomUtil::randomByte))
-			.test(it -> ((List<Byte>)it).size() == 8);
+			.test(it -> (it).size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, RandomUtil::randomChar))
-			.test(it -> ((List<Character>)it).size() == 8);
-		Asserts.assertThat(RandomUtil.randomList(8, it -> it.nextDouble()))
-			.test(it -> ((List<Double>)it).size() == 8);
-		Asserts.assertThat(RandomUtil.randomList(8, it -> it.nextFloat()))
-			.test(it -> ((List<Float>)it).size() == 8);
-		Asserts.assertThat(RandomUtil.randomList(8, it -> it.nextInt()))
-			.test(it -> ((List<Integer>)it).size() == 8);
-		Asserts.assertThat(RandomUtil.randomList(8, it -> it.nextLong()))
-			.test(it -> ((List<Long>)it).size() == 8);
+			.test(it -> (it).size() == 8);
+		Asserts.assertThat(RandomUtil.randomList(8, Random::nextDouble))
+			.test(it -> (it).size() == 8);
+		Asserts.assertThat(RandomUtil.randomList(8, Random::nextFloat))
+			.test(it -> (it).size() == 8);
+		Asserts.assertThat(RandomUtil.randomList(8, Random::nextInt))
+			.test(it -> (it).size() == 8);
+		Asserts.assertThat(RandomUtil.randomList(8, Random::nextLong))
+			.test(it -> (it).size() == 8);
 		Asserts.assertThat(RandomUtil.randomList(8, RandomUtil::randomShort))
-			.test(it -> ((List<Short>)it).size() == 8);
+			.test(it -> (it).size() == 8);
 	}
 	
 	@Test
@@ -184,7 +185,7 @@ public class RandomUtilTest extends BaseTest {
 			.test(it -> it.size() == 8);
 		Asserts.assertThat(RandomUtil.randomMap(8, RandomUtil::randomSmallInt, RandomUtil::randomShortHexString))
 			.test(it -> it.size() == 8);
-		Asserts.assertThat(RandomUtil.randomMap(8, kr -> kr.nextInt(), vr -> vr.nextLong()))
+		Asserts.assertThat(RandomUtil.randomMap(8, Random::nextInt, Random::nextLong))
 				.test(it -> it.size() == 8);
 	}
 	
@@ -192,11 +193,11 @@ public class RandomUtilTest extends BaseTest {
 	public void randomSet() {
 		Asserts.assertThat(RandomUtil.randomSet(8, int.class))
 			.test(it -> it.size() == 8);
-		Asserts.assertThat(RandomUtil.randomSet(8, () -> RandomUtil.randomSmallInt()))
+		Asserts.assertThat(RandomUtil.randomSet(8, RandomUtil::randomSmallInt))
 			.test(it -> it.size() == 8);
-		Asserts.assertThat(RandomUtil.randomSet(8, () -> RandomUtil.randomShortHexString()))
+		Asserts.assertThat(RandomUtil.randomSet(8, (Supplier<String>) RandomUtil::randomShortHexString))
 			.test(it -> it.size() == 8);
-		Asserts.assertThat(RandomUtil.randomSet(8, vr -> vr.nextLong()))
+		Asserts.assertThat(RandomUtil.randomSet(8, Random::nextLong))
 			.test(it -> it.size() == 8);
 	}
 	

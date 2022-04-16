@@ -18,7 +18,6 @@ public class MethodPerformanceTest {
             .object(new ClassA())
             .execute()
             .getTime();
-            
     }
     
     public static class ClassA {
@@ -26,5 +25,4 @@ public class MethodPerformanceTest {
             return "Hello " + name;
         }
     }
-    
 }

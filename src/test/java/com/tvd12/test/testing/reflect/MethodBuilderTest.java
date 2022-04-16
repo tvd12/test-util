@@ -23,8 +23,6 @@ public class MethodBuilderTest extends BaseTest {
     }
     
     public static class ClassA {
-        public void setName(String name, String value) {
-            
-        }
+        public void setName(String name, String value) {}
     }
 }

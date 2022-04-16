@@ -21,8 +21,7 @@ public final class StackTraceUtil {
         final PrintWriter pw = new PrintWriter(sw, true);
         throwable.printStackTrace(pw);
         StringBuffer buffer = sw.getBuffer();
-        String string = buffer.toString();
-        return string;
+        return buffer.toString();
     }
 
     public static String getCallerInfo(StackTraceElement[] stackTrace, int callerIndex) {
@@ -32,8 +31,6 @@ public final class StackTraceUtil {
         StackTraceElement element = stackTrace[callerIndex];
         String callerClassName = element.getClassName();
         String callerSimpleName = ClassUtil.shortClassName(callerClassName);
-        String info = callerSimpleName + ":" + element.getLineNumber();
-        return info;
+        return callerSimpleName + ":" + element.getLineNumber();
     }
-
 }

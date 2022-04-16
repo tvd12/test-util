@@ -41,6 +41,6 @@ public class ParameterTypeUtil {
         if (parameterTypes == null) {
             return "";
         }
-        return toString(parameterTypes.toArray(new Class<?>[parameterTypes.size()]));
+        return toString(parameterTypes.toArray(new Class<?>[0]));
     }
 }

@@ -34,8 +34,7 @@ public class NetUtilTest {
             Thread.sleep(100);
             try {
                 serverSocket.bind(endPoint);  
-            }
-            catch (Exception e) {
+            } catch (Exception ignored) {
             }
             serverSockets[i] = serverSocket;
         }
@@ -68,9 +67,7 @@ public class NetUtilTest {
             Thread.sleep(100);
             try {
                 serverSocket.bind(endPoint);  
-            }
-            catch (Exception e) {
-            }
+            } catch (Exception ignored) {}
             serverSockets[i] = serverSocket;
         }
         
@@ -99,9 +96,7 @@ public class NetUtilTest {
             InetSocketAddress address = new InetSocketAddress(inetAddress, port);
             try {
                 datagramSocket.bind(address);
-            }
-            catch (Exception e) {
-            }
+            } catch (Exception ignored) {}
             datagramSockets[i] = datagramSocket;
         }
         
@@ -132,9 +127,7 @@ public class NetUtilTest {
             InetSocketAddress address = new InetSocketAddress(inetAddress, port);
             try {
                 datagramSocket.bind(address);
-            }
-            catch (Exception e) {
-            }
+            } catch (Exception ignored) {}
             datagramSockets[i] = datagramSocket;
         }
         

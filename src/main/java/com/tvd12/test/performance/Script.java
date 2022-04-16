@@ -11,6 +11,6 @@ public interface Script {
     /**
      * Performance object will run all script in this function
      */
-    public void execute();
+    void execute();
 
 }

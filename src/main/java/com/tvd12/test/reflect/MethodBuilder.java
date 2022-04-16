@@ -21,7 +21,7 @@ public class MethodBuilder {
     private Class<?> clazz;
 
     // list of arguments
-    private List<Class<?>> arguments;
+    private final List<Class<?>> arguments;
 
     public MethodBuilder() {
         arguments = new ArrayList<>();
@@ -85,8 +85,7 @@ public class MethodBuilder {
         return ReflectMethodUtil.getMethod(
             methodName, 
             clazz, 
-            arguments.toArray(new Class<?>[arguments.size()])
+            arguments.toArray(new Class<?>[0])
         );
     }
-
 }

@@ -1,5 +1,10 @@
 package com.tvd12.test.testing.assertion;
 
+import com.tvd12.test.assertion.AssertThat;
+import com.tvd12.test.assertion.Asserts;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -7,12 +12,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.testng.annotations.Test;
-
-import com.tvd12.test.assertion.AssertThat;
-import com.tvd12.test.assertion.Asserts;
-import com.tvd12.test.base.BaseTest;
 
 public class AssertsTest extends BaseTest {
 
@@ -56,14 +55,14 @@ public class AssertsTest extends BaseTest {
 	@Test
 	public void assertEqualsNumbersOk() {
 		Asserts.assertEquals(null, null);
-		Asserts.assertNotEquals(Integer.valueOf(1), Long.valueOf(1));
-		Asserts.assertNotEquals(Integer.valueOf(1), Double.valueOf(1));
-		Asserts.assertNotEquals(Integer.valueOf(1), Long.valueOf(2));
-		Asserts.assertNotEquals(Integer.valueOf(1), Long.valueOf(2), false);
-		Asserts.assertEquals(Integer.valueOf(1), Long.valueOf(1), false);
-		Asserts.assertEquals(Integer.valueOf(1), Double.valueOf(1), false);
-		Asserts.assertEquals(Integer.valueOf(1), Integer.valueOf(1));
-		Asserts.assertEquals(new Double(1.0D), new Double(1.0D));
+		Asserts.assertNotEquals(1, 1L);
+		Asserts.assertNotEquals(1, 1.0);
+		Asserts.assertNotEquals(1, 2L);
+		Asserts.assertNotEquals(1, 2L, false);
+		Asserts.assertEquals(1, 1L, false);
+		Asserts.assertEquals(1, 1.0D, false);
+		Asserts.assertEquals(1, 1);
+		Asserts.assertEquals(1.0D, 1.0D);
 	}
 	
 	@Test(expectedExceptions = AssertionError.class)
@@ -85,8 +84,14 @@ public class AssertsTest extends BaseTest {
 	
 	@Test
 	public void assertEqualsCollections() {
-		Asserts.assertEquals(Arrays.asList(new C(1)), Arrays.asList(new C(1)));
-		Asserts.assertEquals(Arrays.asList(new B("b", 1)), Arrays.asList(new B("b", 1)));
+		Asserts.assertEquals(
+			Collections.singletonList(new C(1)),
+			Collections.singletonList(new C(1))
+		);
+		Asserts.assertEquals(
+			Collections.singletonList(new B("b", 1)),
+			Collections.singletonList(new B("b", 1))
+		);
 	}
 	
 	@Test
@@ -150,17 +155,17 @@ public class AssertsTest extends BaseTest {
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void assertEqualsFailDueToExpectedIsList() {
-		Asserts.assertEquals(Arrays.asList(1), "1", false);
+		Asserts.assertEquals(Collections.singletonList(1), "1", false);
 	}
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void assertEqualsFailDueToExpectedIsNotList() {
-		Asserts.assertEquals("1", Arrays.asList(1), false);
+		Asserts.assertEquals("1", Collections.singletonList(1), false);
 	}
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void assertEqualsFailDueToCollectionSize() {
-		Asserts.assertEquals(Arrays.asList(1, 2), Arrays.asList(1), false);
+		Asserts.assertEquals(Arrays.asList(1, 2), Collections.singletonList(1), false);
 	}
 	
 	@Test(expectedExceptions = AssertionError.class)
@@ -170,7 +175,11 @@ public class AssertsTest extends BaseTest {
 	
 	@Test(expectedExceptions = AssertionError.class)
 	public void assertEqualsFailDueToListsAreNotEquals2() {
-		Asserts.assertEquals(Arrays.asList(new B("a", 1)), Arrays.asList(new B("b", 2)), false);
+		Asserts.assertEquals(
+			Collections.singletonList(new B("a", 1)),
+			Collections.singletonList(new B("b", 2)),
+			false
+		);
 	}
 	
 	@Test(expectedExceptions = AssertionError.class)
@@ -294,7 +303,7 @@ public class AssertsTest extends BaseTest {
 	public static class R {
 		private R r = r2;
 		public R r3 = r2;
-		private static R r2 = new R();
+		private static final R r2 = new R();
 		
 		public R() {}
 		
@@ -308,7 +317,7 @@ public class AssertsTest extends BaseTest {
 	}
 	
 	public static class C {
-		private int id;
+		private final int id;
 		
 		public C(int id) {
 			this.id = id;
@@ -326,7 +335,7 @@ public class AssertsTest extends BaseTest {
 	}
 	
 	public static class B extends A {
-		private int value;
+		private final int value;
 		public B(String name, int value) {
 			super(name);
 			this.value = value;
@@ -338,7 +347,7 @@ public class AssertsTest extends BaseTest {
 	}
 	
 	public static class A {
-		private String name;
+		private final String name;
 		
 		public A(String name) {
 			this.name = name;
@@ -348,5 +357,4 @@ public class AssertsTest extends BaseTest {
 			return name;
 		}
 	}
-	
 }

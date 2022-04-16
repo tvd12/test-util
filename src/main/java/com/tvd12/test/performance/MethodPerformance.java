@@ -14,10 +14,10 @@ import com.tvd12.test.reflect.MethodInvoker;
 public class MethodPerformance {
 
     // performance object
-    private Performance performance = Performance.create();
+    private final Performance performance = Performance.create();
 
     // object invoker object
-    private MethodInvoker invoker = MethodInvoker.create();
+    private final MethodInvoker invoker = MethodInvoker.create();
 
     // builder object
     public static MethodPerformance create() {
@@ -30,12 +30,7 @@ public class MethodPerformance {
      * @return this pointer
      */
     public MethodPerformance execute() {
-        performance.test(new Script() {
-            @Override
-            public void execute() {
-                invoker.invoke();
-            }
-        });
+        performance.test(invoker::invoke);
         return this;
     }
 

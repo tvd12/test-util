@@ -28,25 +28,25 @@ public class AssertThat<T> {
         this.actualSupplier = actualSupplier;
     }
 
-    public boolean isNull() {
+    public void isNull() {
         try {
             actual = getActualValue(true);
         } catch (Throwable e) {
             throw new AssertionError("expected: null but was exception: " + e);
         }
-        return Asserts.assertNull(actual);
+        Asserts.assertNull(actual);
     }
 
-    public boolean isNotNull() {
+    public void isNotNull() {
         try {
             actual = getActualValue(true);
         } catch (Throwable e) {
             throw new AssertionError("expected: not null but was exception: " + e);
         }
-        return Asserts.assertNotNull(actual);
+        Asserts.assertNotNull(actual);
     }
 
-    public boolean isTrue() {
+    public void isTrue() {
         Boolean booleanValue;
         try {
             actual = getActualValue();
@@ -54,10 +54,10 @@ public class AssertThat<T> {
         } catch (Throwable e) {
             throw new AssertionError("expected: not null but was exception: " + e);
         }
-        return Asserts.assertTrue(booleanValue);
+        Asserts.assertTrue(booleanValue);
     }
 
-    public boolean isFalse() {
+    public void isFalse() {
         Boolean booleanValue;
         try {
             actual = getActualValue();
@@ -65,44 +65,49 @@ public class AssertThat<T> {
         } catch (Throwable e) {
             throw new AssertionError("expected: true but was exception: " + e);
         }
-        return Asserts.assertFalse(booleanValue);
+        Asserts.assertFalse(booleanValue);
     }
 
-    public boolean isZero() {
+    public void isZero() {
         try {
             actual = getActualValue();
         } catch (Throwable e) {
             throw new AssertionError("expected: false but was exception: " + e);
         }
         if (actual instanceof BigInteger) {
-            return Asserts.assertZero((BigInteger) actual);
+            Asserts.assertZero((BigInteger) actual);
+            return;
         }
         if (actual instanceof BigDecimal) {
-            return Asserts.assertZero((BigDecimal) actual);
+            Asserts.assertZero((BigDecimal) actual);
+            return;
         }
         if (actual instanceof Number) {
-            return Asserts.assertZero((Number) actual);
+            Asserts.assertZero((Number) actual);
+            return;
         }
         throw new AssertionError("expected 0 or ZERO but was: " + actual);
     }
 
     @SuppressWarnings("rawtypes")
-    public boolean isEmpty() {
+    public void isEmpty() {
         try {
             actual = getActualValue();
         } catch (Throwable e) {
             throw new AssertionError("expected: false but was exception: " + e);
         }
         if (actual instanceof Iterable) {
-            return Asserts.assertEmpty((Iterable) actual);
+            Asserts.assertEmpty((Iterable) actual);
+            return;
         }
         if (actual instanceof Map) {
-            return Asserts.assertEmpty((Map) actual);
+            Asserts.assertEmpty((Map) actual);
+            return;
         }
         throw new AssertionError("expected empty (iterable or map) but was: " + actual);
     }
 
-    public boolean test(Predicate<T> predicate) {
+    public void test(Predicate<T> predicate) {
         try {
             actual = getActualValue();
         } catch (Throwable e) {
@@ -111,10 +116,9 @@ public class AssertThat<T> {
         if (!predicate.test(actual)) {
             throw new AssertionError("test fails");
         }
-        return true;
     }
 
-    public boolean isEqualsType(Class<?> expectedType) {
+    public void isEqualsType(Class<?> expectedType) {
         try {
             actual = getActualValue();
         } catch (Throwable e) {
@@ -122,15 +126,15 @@ public class AssertThat<T> {
                 "expected: " + expectedType.getName() + " but was exception: " + e
             );
         }
-        return Asserts.assertEqualsType(actual, expectedType);
+        Asserts.assertEqualsType(actual, expectedType);
     }
 
-    public boolean isEqualsTo(Object expected) {
-        return isEqualsTo(expected, true);
+    public void isEqualsTo(Object expected) {
+        isEqualsTo(expected, true);
     }
 
     @SuppressWarnings("unchecked")
-    public boolean isEqualsTo(Object expected, boolean mustEqualsType) {
+    public void isEqualsTo(Object expected, boolean mustEqualsType) {
         try {
             actual = getActualValue();
         } catch (Throwable e) {
@@ -140,11 +144,11 @@ public class AssertThat<T> {
                 throw new AssertionError("expected: " + expected + " but was exception: " + e);
             }
         }
-        return Asserts.assertEquals(expected, actual, mustEqualsType);
+        Asserts.assertEquals(expected, actual, mustEqualsType);
     }
 
-    public boolean isEqualsTo(AssertSupplier<T> expectedSupplier) {
-        Object expected = null;
+    public void isEqualsTo(AssertSupplier<T> expectedSupplier) {
+        Object expected;
         try {
             expected = expectedSupplier.apply();
         } catch (Throwable e) {
@@ -157,11 +161,11 @@ public class AssertThat<T> {
                 throw new AssertionError("expected: " + expected + " but was exception: " + e);
             }
         }
-        return Asserts.assertEquals(expected, actual);
+        Asserts.assertEquals(expected, actual);
     }
 
-    public boolean willThrows(Class<?> expectedExceptionType) {
-        return acceptException(e -> {
+    public void willThrows(Class<?> expectedExceptionType) {
+        acceptException(e -> {
             if (e.getClass() != expectedExceptionType) {
                 throw new AssertionError(
                     "expected throws: " + expectedExceptionType.getName() 
@@ -170,14 +174,14 @@ public class AssertThat<T> {
         });
     }
 
-    public boolean acceptException(Consumer<Throwable> exceptionConsumer) {
-        return testException(t -> {
-            exceptionConsumer.accept(t);
+    public void acceptException(Consumer<Throwable> exceptionConsumer) {
+        testException(it -> {
+            exceptionConsumer.accept(it);
             return true;
         });
     }
 
-    public boolean testException(Predicate<Throwable> exceptionPredicate) {
+    public void testException(Predicate<Throwable> exceptionPredicate) {
         if (actualSupplier == null) {
             throw new AssertionError("there is no Exception to throw");
         }
@@ -188,7 +192,6 @@ public class AssertThat<T> {
             if (!exceptionPredicate.test(e)) {
                 throw new AssertionError("fails when test exception: " + e);
             }
-            return true;
         }
     }
 
@@ -207,5 +210,4 @@ public class AssertThat<T> {
         }
         return answer;
     }
-
 }

@@ -63,5 +63,4 @@ public class BaseTest extends QuickLog {
     public Class<?> getTestClass() {
         return null;
     }
-
 }

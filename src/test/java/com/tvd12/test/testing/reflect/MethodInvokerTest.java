@@ -71,12 +71,8 @@ public class MethodInvokerTest {
             return get(0, "");
         }
         
-        public static void staticMethod() {
-        }
-    	
+        public static void staticMethod() {}
     }
     
-    public static class B extends A {
-    }
-    
+    public static class B extends A { }
 }

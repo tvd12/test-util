@@ -30,7 +30,7 @@ public class ReflectMethodUtilTest extends BaseTest {
     public void testInvokeMethodWithMethodInvalidCase() {
         Method method = ReflectMethodUtil.getMethod("doSomeThing1", ClassA.class, Integer.class);
         method.setAccessible(false);
-        ReflectMethodUtil.invokeMethod(method, new ClassA(), new Integer(1));
+        ReflectMethodUtil.invokeMethod(method, new ClassA(), 1);
     }
     
     @Test(expectedExceptions = {IllegalStateException.class})
@@ -44,7 +44,7 @@ public class ReflectMethodUtilTest extends BaseTest {
     public void testInvokeMethodWithMethodInvalidCase2() {
         Method method = ReflectMethodUtil.getMethod("doSomeThing1", ClassA.class, Integer.class);
         method.setAccessible(false);
-        ReflectMethodUtil.invokeMethod(method, new Object(), new Integer(1));
+        ReflectMethodUtil.invokeMethod(method, new Object(), 1);
     }
     
     @Test
@@ -64,7 +64,7 @@ public class ReflectMethodUtilTest extends BaseTest {
     
     @Test
     public void testInvokeMethodCase() {
-        Method method = ReflectMethodUtil.getMethod("doSomeThing1", new ClassA(), new Integer(10));
+        Method method = ReflectMethodUtil.getMethod("doSomeThing1", new ClassA(), 10);
         assertNotNull(method);
         int value = (int) ReflectMethodUtil.invokeMethod(method, new ClassA(), 10);
         assertEquals(10, value);
@@ -84,7 +84,7 @@ public class ReflectMethodUtilTest extends BaseTest {
         
         types = (Class<?>[]) ReflectMethodUtil.invokeStaticMethod(
                 ReflectMethodUtil.getMethod("getParameterTypes", ReflectMethodUtil.class, Object[].class), 
-                new Object[] {(Object[])null});
+                new Object[] {null});
         assertNull(types);
     }
     
@@ -111,7 +111,7 @@ public class ReflectMethodUtilTest extends BaseTest {
     
     @Test(expectedExceptions = {IllegalStateException.class})
     public void invokeConstructorInvalidCaseTest() {
-        ReflectMethodUtil.invokeConstructor(ClassC.class, new Integer(1));
+        ReflectMethodUtil.invokeConstructor(ClassC.class, 1);
     }
     
     @Test(expectedExceptions = {IllegalStateException.class})
