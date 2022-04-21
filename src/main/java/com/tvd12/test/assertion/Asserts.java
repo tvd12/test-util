@@ -353,7 +353,8 @@ public final class Asserts {
                 throw new AssertionError(
                     "expected " + keyType + ": " + toString(expectedEntry.getKey()) +
                         " but was: " + toString(actualEntry.getKey()) +
-                        "\nexpected:\n" + toString(expectedType, expected) + "\nactual:\n" + toString(actualType, actual),
+                        "\nexpected:\n" + toString(expectedType, expected) +
+                        "\nactual:\n" + toString(actualType, actual),
                     e
                 );
             }
@@ -363,7 +364,8 @@ public final class Asserts {
                 throw new AssertionError(
                     "expected value: " + toString(expectedEntry.getValue()) +
                         " but was: " + toString(actualEntry.getValue()) +
-                        "\nexpected:\n" + toString(expectedType, expected) + "\nactual:\n" + toString(actualType, actual),
+                        "\nexpected:\n" + toString(expectedType, expected) +
+                        "\nactual:\n" + toString(actualType, actual),
                     e
                 );
             }
