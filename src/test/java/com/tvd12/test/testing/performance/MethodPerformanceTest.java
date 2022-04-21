@@ -12,14 +12,14 @@ public class MethodPerformanceTest {
     public void test() {
         MethodPerformance.create()
             .loop(10000000)
-            .method((Method)null)
+            .method((Method) null)
             .method("hello")
             .param("Dung")
             .object(new ClassA())
             .execute()
             .getTime();
     }
-    
+
     public static class ClassA {
         public String hello(String name) {
             return "Hello " + name;

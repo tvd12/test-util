@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import com.tvd12.test.assertion.Asserts;
 
 public class AssertsMessageTest {
-    
+
     @Test
     public void testNull() {
         try {
@@ -20,7 +20,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testNotNull() {
         try {
@@ -29,7 +29,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testNotNumber1() {
         try {
@@ -38,7 +38,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testNotNumber2() {
         try {
@@ -47,7 +47,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testNotEquals() {
         try {
@@ -56,7 +56,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testEquals() {
         try {
@@ -65,7 +65,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testEqualsType() {
         try {
@@ -74,7 +74,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testEqualsTypeButNull() {
         try {
@@ -97,7 +97,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testForMapNotSameKey() {
         Map<String, Object> m1 = new HashMap<>();
@@ -110,7 +110,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testForMapNotSameValue() {
         Map<String, Object> m1 = new HashMap<>();
@@ -123,7 +123,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void testForMapNotSameValueType() {
         Map<String, Object> m1 = new HashMap<>();
@@ -136,7 +136,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameTypeTest() {
         try {
@@ -145,7 +145,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameTypeObjectTest() {
         try {
@@ -154,7 +154,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameValueTest() {
         A a = new A("hello", 1);
@@ -165,18 +165,18 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameValueComplexTest() {
         B a = new B(
-            "hello", 
+            "hello",
             1,
             new A("1", 1),
             Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         B b = new B(
-            "hello", 
+            "hello",
             1,
             new A("1", 1),
             Collections.singletonList(new A("2", 2)),
@@ -188,18 +188,18 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameValueComplexListTest() {
         B a = new B(
-            "hello", 
+            "hello",
             1,
             new A("1", 1),
             Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         B b = new B(
-            "hello", 
+            "hello",
             1,
             new A("2", 1),
             Collections.singletonList(new A("2", 2)),
@@ -211,18 +211,18 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameValueComplexNullTest() {
         B a = new B(
-            "hello", 
+            "hello",
             1,
             new A("1", 1),
             Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         B b = new B(
-            "hello", 
+            "hello",
             1,
             null,
             Collections.singletonList(new A("2", 2)),
@@ -234,18 +234,18 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameValueComplexNumberTest() {
         B a = new B(
-            "hello", 
+            "hello",
             1,
             new A("1", 1),
             Collections.singletonList(new A("2", 2)),
             Collections.singletonMap("m", new A("3", 3))
         );
         B b = new B(
-            "hello", 
+            "hello",
             1,
             new A("1", 1),
             Collections.singletonList(new A("2", 2)),
@@ -257,7 +257,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameListSize() {
         try {
@@ -269,7 +269,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameListValue() {
         try {
@@ -281,7 +281,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameListValueObject() {
         try {
@@ -293,7 +293,7 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameListKeyObject() {
         try {
@@ -305,65 +305,65 @@ public class AssertsMessageTest {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameArraySize() {
         try {
             Asserts.assertEquals(
-                new int[] {1, 2},
-                new int[] {1}
+                new int[]{1, 2},
+                new int[]{1}
             );
         } catch (Throwable e) {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameArrayValue() {
         try {
             Asserts.assertEquals(
-                new int[] {1, 2},
-                new int[] {1, 3}
+                new int[]{1, 2},
+                new int[]{1, 3}
             );
         } catch (Throwable e) {
             e.printStackTrace();
         }
     }
-    
+
     @Test
     public void notSameArrayValueObject() {
         try {
             Asserts.assertEquals(
-                new A[] {new A("1", 1), new A("2", 2)},
-                new A[] {new A("1", 1), new A("2", 3)}
+                new A[]{new A("1", 1), new A("2", 2)},
+                new A[]{new A("1", 1), new A("2", 3)}
             );
         } catch (Throwable e) {
             e.printStackTrace();
         }
     }
-    
+
     public static class A {
         public String name;
         public int value;
-        
+
         public A() {}
-        
+
         public A(String name, int value) {
             super();
             this.name = name;
             this.value = value;
         }
     }
-    
+
     public static class B {
         public String foo;
         public int bar;
         public A a;
         public List<A> aList;
         public Map<Object, A> aMap;
-        
+
         public B() {}
-        
+
         public B(String foo, int bar, A a, List<A> aList, Map<Object, A> aMap) {
             super();
             this.foo = foo;

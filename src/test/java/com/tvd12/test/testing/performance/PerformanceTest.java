@@ -17,13 +17,14 @@ public class PerformanceTest extends BaseTest {
                 public void execute() {
                     hello();
                 }
+
                 public void hello() {
                 }
             })
             .getTime();
         assert time >= 0;
     }
-    
+
     @Test
     public void testInConcurrentMode() {
         long time = Performance.create()
@@ -39,16 +40,13 @@ public class PerformanceTest extends BaseTest {
             .getTime();
         System.out.println(time);
     }
-    
+
     @Test(expectedExceptions = IllegalStateException.class)
     public void testExceptionCase() {
         long time = Performance.create()
             .loop(1000000000)
-            .test(new Script() {
-                @Override
-                public void execute() {
-                    throw new IllegalArgumentException("just test");
-                }
+            .test(() -> {
+                throw new IllegalArgumentException("just test");
             })
             .getTime();
         assert time >= 0;

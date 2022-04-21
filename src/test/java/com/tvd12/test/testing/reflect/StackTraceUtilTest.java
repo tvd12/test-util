@@ -9,13 +9,13 @@ import com.tvd12.test.reflect.StackTraceUtil;
 
 public class StackTraceUtilTest extends BaseTest {
 
-	@Override
-	public Class<?> getTestClass() {
-		return StackTraceUtil.class;
-	}
-	
-	@Test
-	public void test() {
-		assertEquals(StackTraceUtil.getCallerInfo(new StackTraceElement[0], 4), "[Unknown]");
-	}
+    @Override
+    public Class<?> getTestClass() {
+        return StackTraceUtil.class;
+    }
+
+    @Test
+    public void test() {
+        assertEquals(StackTraceUtil.getCallerInfo(new StackTraceElement[0], 4), "[Unknown]");
+    }
 }

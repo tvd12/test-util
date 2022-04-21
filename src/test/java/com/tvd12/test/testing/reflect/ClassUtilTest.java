@@ -9,15 +9,15 @@ import com.tvd12.test.reflect.ClassUtil;
 
 public class ClassUtilTest extends BaseTest {
 
-	@Override
-	public Class<?> getTestClass() {
-		return ClassUtil.class;
-	}
-	
-	@Test
-	public void test() {
-		assertEquals(ClassUtil.shortClassName("A"), "A");
-		assertEquals(ClassUtil.shortClassName("hello.A"), "hello.A");
-		assertEquals(ClassUtil.shortClassName("foo.bar.A"), "bar.A");
-	}
+    @Override
+    public Class<?> getTestClass() {
+        return ClassUtil.class;
+    }
+
+    @Test
+    public void test() {
+        assertEquals(ClassUtil.shortClassName("A"), "A");
+        assertEquals(ClassUtil.shortClassName("hello.A"), "hello.A");
+        assertEquals(ClassUtil.shortClassName("foo.bar.A"), "bar.A");
+    }
 }

@@ -7,9 +7,9 @@ import com.tvd12.test.util.Pair;
 
 public class PairTest extends BaseTest {
 
-	@Test
-	public void test() {
-		Pair<String, String> pair = new Pair<String, String>("1", "a");
-		assert pair.setValue("b").equals("a");
-	}
+    @Test
+    public void test() {
+        Pair<String, String> pair = new Pair<>("1", "a");
+        assert pair.setValue("b").equals("a");
+    }
 }

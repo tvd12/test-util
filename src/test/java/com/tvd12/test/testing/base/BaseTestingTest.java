@@ -12,5 +12,4 @@ public class BaseTestingTest {
         base.beforeClass();
         base.afterClass();
     }
-    
 }
