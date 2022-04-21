@@ -3,11 +3,9 @@ package com.tvd12.test.reflect;
 import java.util.List;
 
 /**
- * 
  * Supports for reflection parameter
- * 
- * @author tvd12
  *
+ * @author tvd12
  */
 public class ParameterTypeUtil {
 
@@ -16,7 +14,7 @@ public class ParameterTypeUtil {
 
     /**
      * Build array of parameters types to string
-     * 
+     *
      * @param parameterTypes array of parameters
      * @return a string
      */
@@ -33,7 +31,7 @@ public class ParameterTypeUtil {
 
     /**
      * Build list of parameters types to string
-     * 
+     *
      * @param parameterTypes list of parameter types
      * @return the chain of parameterTypes
      */

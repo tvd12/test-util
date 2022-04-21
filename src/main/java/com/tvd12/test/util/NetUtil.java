@@ -8,11 +8,9 @@ import java.util.function.Predicate;
 import javax.net.ServerSocketFactory;
 
 /**
- * 
  * Support for networking
- * 
- * @author tvd12
  *
+ * @author tvd12
  */
 
 public class NetUtil {
@@ -23,7 +21,7 @@ public class NetUtil {
     private static final Predicate<Integer> TCP_PORT_PREDICATE = (port) -> {
         try {
             ServerSocket serverSocket = ServerSocketFactory.getDefault()
-                    .createServerSocket(port, 1, InetAddress.getByName("127.0.0.1"));
+                .createServerSocket(port, 1, InetAddress.getByName("127.0.0.1"));
             serverSocket.close();
             return true;
         } catch (Exception ex) {
@@ -41,8 +39,7 @@ public class NetUtil {
         }
     };
 
-    private NetUtil() {
-    }
+    private NetUtil() {}
 
     public static int findAvailableTcpPort() {
         return findAvailableTcpPort(PORT_RANGE_MIN, PORT_RANGE_MAX);
@@ -82,9 +79,8 @@ public class NetUtil {
 
     /**
      * The transport type
-     * 
-     * @author tvd12
      *
+     * @author tvd12
      */
     public enum TransportType {
         TCP,

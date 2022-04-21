@@ -13,15 +13,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * 
  * Assertion for test
- * 
- * @author tvd12
  *
+ * @author tvd12
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public final class Asserts {
-    
+
     private Asserts() {}
 
     public static void assertNull(Object actual) {
@@ -39,7 +37,7 @@ public final class Asserts {
     public static <T> AssertThat<T> assertThat(T actual) {
         return new AssertThat<>(actual);
     }
-    
+
     public static <T> AssertThat<T> assertThat(AssertSupplier<T> actualSuppler) {
         return new AssertThat<>(actualSuppler);
     }
@@ -113,8 +111,8 @@ public final class Asserts {
     }
 
     public static void assertNotEquals(
-        Object actual, 
-        Object expected, 
+        Object actual,
+        Object expected,
         boolean mustEqualsType
     ) {
         try {
@@ -124,7 +122,7 @@ public final class Asserts {
         }
         throw new AssertionError(
             "\nexpected:\n" + toString(expected) + "\nis not equal to:\n" + toString(actual) +
-            "\nbut equal"
+                "\nbut equal"
         );
     }
 
@@ -145,7 +143,7 @@ public final class Asserts {
 
     @SuppressWarnings("MethodLength")
     public static boolean assertEquals(
-        Object actual, 
+        Object actual,
         Object expected,
         boolean mustEqualsType
     ) {
@@ -174,8 +172,8 @@ public final class Asserts {
         }
 
         // number
-        if (Number.class.isAssignableFrom(expectedType) 
-                && Number.class.isAssignableFrom(actualType)) {
+        if (Number.class.isAssignableFrom(expectedType)
+            && Number.class.isAssignableFrom(actualType)) {
             Number expectedNumber = (Number) expected;
             Number actualNumber = (Number) actual;
             if (expectedNumber.doubleValue() != actualNumber.doubleValue()) {
@@ -207,12 +205,12 @@ public final class Asserts {
         }
 
         // collection
-        if (Collection.class.isAssignableFrom(expectedType) 
-                && Collection.class.isAssignableFrom(actualType)) {
+        if (Collection.class.isAssignableFrom(expectedType)
+            && Collection.class.isAssignableFrom(actualType)) {
             return assertEqualsCollections(new ArrayList<>(
-                    (Collection) actual), 
-                    new ArrayList<>((Collection) expected),
-                    mustEqualsType
+                    (Collection) actual),
+                new ArrayList<>((Collection) expected),
+                mustEqualsType
             );
         }
         if (Collection.class.isAssignableFrom(expectedType)) {
@@ -245,16 +243,16 @@ public final class Asserts {
             return assertEqualsObjects(actual, expected, mustEqualsType);
         } catch (Exception e) {
             throw new AssertionError(
-                "\nexpected:\n" + toString(expectedType, expected) + 
-                "\nbut was:\n" + toString(actualType, actual),
+                "\nexpected:\n" + toString(expectedType, expected) +
+                    "\nbut was:\n" + toString(actualType, actual),
                 e
             );
         }
     }
 
     private static boolean assertEqualsArrays(
-        Object actual, 
-        Object expected, 
+        Object actual,
+        Object expected,
         boolean mustEqualsType
     ) {
         int expectedLength = Array.getLength(expected);
@@ -262,7 +260,7 @@ public final class Asserts {
         if (expectedLength != actualLength) {
             throw new AssertionError(
                 "\nexpected (size = " + expectedLength + "):\n" + arrayToString(expected) +
-                "\nbut was: (size = " + actualLength + "):\n" + arrayToString(actual)
+                    "\nbut was: (size = " + actualLength + "):\n" + arrayToString(actual)
             );
         }
         for (int i = 0; i < expectedLength; ++i) {
@@ -272,9 +270,9 @@ public final class Asserts {
                 assertEquals(actualItem, expectedItem, mustEqualsType);
             } catch (AssertionError e) {
                 throw new AssertionError(
-                    "expected: " + toString(expectedItem) + " but was: " + toString(actualItem) + 
-                    "\nexpect:\n" + arrayToString(expected) +
-                    "\nactual:\n" + arrayToString(actual),
+                    "expected: " + toString(expectedItem) + " but was: " + toString(actualItem) +
+                        "\nexpect:\n" + arrayToString(expected) +
+                        "\nactual:\n" + arrayToString(actual),
                     e
                 );
             }
@@ -283,8 +281,8 @@ public final class Asserts {
     }
 
     private static boolean assertEqualsCollections(
-        List actual, 
-        List expected, 
+        List actual,
+        List expected,
         boolean mustEqualsType
     ) {
         int expectedLength = expected.size();
@@ -292,7 +290,7 @@ public final class Asserts {
         if (expectedLength != actualLength) {
             throw new AssertionError(
                 "\nexpected (size = " + expectedLength + "):\n" + toString(expected) +
-                "\nbut was: (size = " + actualLength + "):\n" + toString(actual)
+                    "\nbut was: (size = " + actualLength + "):\n" + toString(actual)
             );
         }
         for (int i = 0; i < expectedLength; ++i) {
@@ -304,8 +302,8 @@ public final class Asserts {
                 String builder = "expected: " + toString(expectedItem) +
                     " but was: " + toString(actualItem);
                 throw new AssertionError(
-                    builder + "\nexpect:\n" + toString(expected) + 
-                    "\nactual:\n" + toString(actual), 
+                    builder + "\nexpect:\n" + toString(expected) +
+                        "\nactual:\n" + toString(actual),
                     e
                 );
             }
@@ -314,7 +312,7 @@ public final class Asserts {
     }
 
     private static boolean assertEqualsMaps(
-        Map actual, 
+        Map actual,
         Map expected,
         boolean mustEqualsType
     ) {
@@ -331,17 +329,17 @@ public final class Asserts {
     private static boolean assertEqualsMaps(
         Class<?> actualType,
         Class<?> expectedType,
-        Map actual, 
-        Map expected, 
-        boolean mustEqualsType, 
+        Map actual,
+        Map expected,
+        boolean mustEqualsType,
         String keyType
     ) {
         int expectedLength = expected.size();
         int actualLength = actual.size();
         if (expectedLength != actualLength) {
             throw new AssertionError(
-                "\nexpected (" + "size = " + expectedLength +  "):\n" + toString(expectedType, expected) +
-                "\nbut was (" + "size = " + actualLength + "):\n" + toString(actualType, actual)
+                "\nexpected (" + "size = " + expectedLength + "):\n" + toString(expectedType, expected) +
+                    "\nbut was (" + "size = " + actualLength + "):\n" + toString(actualType, actual)
             );
         }
         List<Entry> expectedEntries = new ArrayList<>(expected.entrySet());
@@ -353,9 +351,9 @@ public final class Asserts {
                 assertEquals(actualEntry.getKey(), expectedEntry.getKey(), mustEqualsType);
             } catch (AssertionError e) {
                 throw new AssertionError(
-                    "expected " + keyType + ": " + toString(expectedEntry.getKey()) + 
-                    " but was: " + toString(actualEntry.getKey()) + 
-                    "\nexpected:\n" + toString(expectedType, expected) + "\nactual:\n" + toString(actualType, actual),
+                    "expected " + keyType + ": " + toString(expectedEntry.getKey()) +
+                        " but was: " + toString(actualEntry.getKey()) +
+                        "\nexpected:\n" + toString(expectedType, expected) + "\nactual:\n" + toString(actualType, actual),
                     e
                 );
             }
@@ -363,9 +361,9 @@ public final class Asserts {
                 assertEquals(actualEntry.getValue(), expectedEntry.getValue(), mustEqualsType);
             } catch (AssertionError e) {
                 throw new AssertionError(
-                    "expected value: " + toString(expectedEntry.getValue()) + 
-                    " but was: " + toString(actualEntry.getValue()) + 
-                    "\nexpected:\n" + toString(expectedType, expected) + "\nactual:\n" + toString(actualType, actual),
+                    "expected value: " + toString(expectedEntry.getValue()) +
+                        " but was: " + toString(actualEntry.getValue()) +
+                        "\nexpected:\n" + toString(expectedType, expected) + "\nactual:\n" + toString(actualType, actual),
                     e
                 );
             }
@@ -374,7 +372,7 @@ public final class Asserts {
     }
 
     private static boolean assertEqualsObjects(
-        Object actual, 
+        Object actual,
         Object expected,
         boolean mustEqualsType
     ) throws Exception {
@@ -432,14 +430,14 @@ public final class Asserts {
         }
         return true;
     }
-    
+
     private static String toString(Object value) {
         if (value == null) {
             return "null";
         }
         return toString(value.getClass(), value);
     }
-    
+
     private static String toString(Class<?> type, Object value) {
         String str = String.valueOf(value);
         if (str.contains(type.getSimpleName())) {

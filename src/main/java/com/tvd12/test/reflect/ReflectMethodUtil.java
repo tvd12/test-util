@@ -5,11 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * 
  * Supports for reflection method interaction
- * 
- * @author tvd12
  *
+ * @author tvd12
  */
 public final class ReflectMethodUtil {
 
@@ -20,12 +18,12 @@ public final class ReflectMethodUtil {
      * Get a method (public, private, protected, package access) with the given
      * method name and the given parameter types, declared on the given class or one
      * of its super classes.
-     * 
+     *
      * @param methodName     method name
      * @param clazz          class to find
      * @param parameterTypes array of parameter types
      * @return a method
-     * @exception IllegalStateException when method not exists
+     * @throws IllegalStateException when method not exists
      */
     public static Method getMethod(String methodName, Class<?> clazz, Class<?>... parameterTypes) {
         Method method = null;
@@ -50,14 +48,14 @@ public final class ReflectMethodUtil {
      * Get a method (public, private, protected, package access) with the given
      * method name and the given parameter types, declared on the given class or one
      * of its superclasses.
-     * 
+     * <p>
      * Note: unsupport params is primitive types
-     * 
+     *
      * @param methodName method name
      * @param object     object to find
      * @param params     array of parameters
      * @return a method
-     * @exception IllegalStateException when method not exists
+     * @throws IllegalStateException when method not exists
      */
     public static Method getMethod(String methodName, Object object, Object... params) {
         Class<?>[] types = getParameterTypes(params);
@@ -66,7 +64,7 @@ public final class ReflectMethodUtil {
 
     /**
      * Get constructor of class
-     * 
+     *
      * @param clazz          declaring class
      * @param parameterTypes array of parameter types
      * @return a constructor
@@ -85,7 +83,7 @@ public final class ReflectMethodUtil {
 
     /**
      * Get parameter types from array of parameter values
-     * 
+     *
      * @param params array of parameters
      * @return array of parameter types
      */
@@ -103,12 +101,12 @@ public final class ReflectMethodUtil {
     /**
      * Invokes a method whose parameter types match exactly the parameter types
      * given.
-     * 
+     *
      * @param method method to invoke
      * @param object invoke method on this object
      * @param params array of parameter
      * @return the value returned by the invoked method
-     * @exception IllegalStateException when can not invoke method
+     * @throws IllegalStateException when can not invoke method
      */
     public static Object invokeMethod(Method method, Object object, Object... params) {
         try {
@@ -123,7 +121,7 @@ public final class ReflectMethodUtil {
     /**
      * Invokes a method whose parameter types match exactly the parameter types
      * given. Note: unsupport params is primitive types
-     * 
+     *
      * @param methodName method name
      * @param object     invoke method on this object
      * @param params     array of parameter
@@ -137,7 +135,7 @@ public final class ReflectMethodUtil {
     /**
      * Invokes a static method whose parameter types match exactly the parameter
      * types given. Note: unsupport params is primitive types
-     * 
+     *
      * @param methodName method name
      * @param clazz      invoke method on this class
      * @param params     array of parameter
@@ -152,7 +150,7 @@ public final class ReflectMethodUtil {
     /**
      * Invokes a static method whose parameter types match exactly the parameter
      * types given.
-     * 
+     *
      * @param method method to invoke
      * @param params array of parameter
      * @return the value returned by the invoked method
@@ -163,7 +161,7 @@ public final class ReflectMethodUtil {
 
     /**
      * Invoke constructor on class
-     * 
+     *
      * @param clazz  declaring class
      * @param params array of parameters
      * @return the result

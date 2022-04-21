@@ -3,13 +3,11 @@ package com.tvd12.test.util;
 import java.util.Map.Entry;
 
 /**
- * 
  * Map key and value
- * 
- * @author tvd12
  *
  * @param <K> the key type
  * @param <V> the value type
+ * @author tvd12
  */
 public class Pair<K, V> implements Entry<K, V> {
 

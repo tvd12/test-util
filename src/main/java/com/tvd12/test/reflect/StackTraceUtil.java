@@ -4,11 +4,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * 
  * Support to read stack trace
- * 
- * @author tvd12
  *
+ * @author tvd12
  */
 public final class StackTraceUtil {
 

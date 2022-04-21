@@ -6,12 +6,10 @@ import java.util.Date;
 import com.tvd12.test.reflect.StackTraceUtil;
 
 /**
- * 
  * This class support for logging quickly, you don't need declare a logger
  * object with long syntax
- * 
- * @author tavandung12
  *
+ * @author tavandung12
  */
 public class QuickLog {
 
@@ -21,7 +19,7 @@ public class QuickLog {
     /**
      * Log a message at the INFO level according to the specified format and
      * arguments.
-     * 
+     *
      * @param msg message
      */
     public void info(String msg) {
@@ -31,7 +29,7 @@ public class QuickLog {
 
     /**
      * Log an exception (throwable) at the INFO level with an accompanying message.
-     * 
+     *
      * @param msg message
      * @param e   exception
      */
@@ -43,7 +41,7 @@ public class QuickLog {
     /**
      * Log a message at the ERROR level according to the specified format and
      * arguments.
-     * 
+     *
      * @param msg message
      */
     public void error(String msg) {
@@ -53,7 +51,7 @@ public class QuickLog {
 
     /**
      * Log an exception (throwable) at the ERROR level with an accompanying message.
-     * 
+     *
      * @param msg message
      * @param e   exception
      */
@@ -68,16 +66,16 @@ public class QuickLog {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss,SSS");
         StringBuilder builder = new StringBuilder().append(dateFormat.format(now))
-                .append(" | ")
-                .append(timeFormat.format(now))
-                .append(" | ")
-                .append(level)
-                .append(" | ")
-                .append(thread.getName())
-                .append(" | ")
-                .append(getCallerInfo(thread))
-                .append(" |\t| ")
-                .append(message);
+            .append(" | ")
+            .append(timeFormat.format(now))
+            .append(" | ")
+            .append(level)
+            .append(" | ")
+            .append(thread.getName())
+            .append(" | ")
+            .append(getCallerInfo(thread))
+            .append(" |\t| ")
+            .append(message);
         if (e != null) {
             builder.append("\n").append(getStackTrace(e));
         }

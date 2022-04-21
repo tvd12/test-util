@@ -6,11 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 
  * Build to get reflection method
- * 
- * @author tvd12
  *
+ * @author tvd12
  */
 public class MethodBuilder {
 
@@ -34,7 +32,7 @@ public class MethodBuilder {
 
     /**
      * Set method name
-     * 
+     *
      * @param name method name
      * @return this pointer
      */
@@ -45,7 +43,7 @@ public class MethodBuilder {
 
     /**
      * Set declaring class of method
-     * 
+     *
      * @param clazz class
      * @return this pointer
      */
@@ -56,7 +54,7 @@ public class MethodBuilder {
 
     /**
      * Add argument
-     * 
+     *
      * @param argument the argument
      * @return this pointer
      */
@@ -67,7 +65,7 @@ public class MethodBuilder {
 
     /**
      * Add arguments
-     * 
+     *
      * @param arguments the arguments
      * @return this pointer
      */
@@ -78,13 +76,13 @@ public class MethodBuilder {
 
     /**
      * Build a method
-     * 
+     *
      * @return a method
      */
     public Method build() {
         return ReflectMethodUtil.getMethod(
-            methodName, 
-            clazz, 
+            methodName,
+            clazz,
             arguments.toArray(new Class<?>[0])
         );
     }

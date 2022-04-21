@@ -4,9 +4,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /***
- * 
+ *
  * Supports for reflection method interaction
- * 
+ *
  * @author tvd12
  *
  */
@@ -19,12 +19,12 @@ public final class MethodUtil {
      * Get a method (public, private, protected, package access) with the given
      * method name and the given parameter types, declared on the given class or one
      * of its superclasses.
-     * 
+     *
      * @param methodName     method name
      * @param clazz          class to find
      * @param parameterTypes array of parameter types
      * @return a method
-     * @exception IllegalStateException when method not exists
+     * @throws IllegalStateException when method not exists
      */
     public static Method getMethod(String methodName, Class<?> clazz, Class<?>... parameterTypes) {
         return ReflectMethodUtil.getMethod(methodName, clazz, parameterTypes);
@@ -34,14 +34,14 @@ public final class MethodUtil {
      * Get a method (public, private, protected, package access) with the given
      * method name and the given parameter types, declared on the given class or one
      * of its superclasses.
-     * 
+     * <p>
      * Note: unsupport params is primitive types
-     * 
+     *
      * @param methodName method name
      * @param object     object to find
      * @param params     array of parameters
      * @return a method
-     * @exception IllegalStateException when method not exists
+     * @throws IllegalStateException when method not exists
      */
     public static Method getMethod(String methodName, Object object, Object... params) {
         return ReflectMethodUtil.getMethod(methodName, object, params);
@@ -49,7 +49,7 @@ public final class MethodUtil {
 
     /**
      * Get constructor of class
-     * 
+     *
      * @param clazz          declaring class
      * @param parameterTypes array of parameter types
      * @return a constructor
@@ -61,13 +61,13 @@ public final class MethodUtil {
     /**
      * Invokes a method whose parameter types match exactly the parameter types
      * given.
-     * 
+     *
      * @param method method to invoke
      * @param object invoke method on this object
      * @param params array of parameter
      * @param <T>    the return type
      * @return the value returned by the invoked method
-     * @exception IllegalStateException when can not invoke method
+     * @throws IllegalStateException when can not invoke method
      */
     @SuppressWarnings("unchecked")
     public static <T> T invokeMethod(Method method, Object object, Object... params) {
@@ -77,7 +77,7 @@ public final class MethodUtil {
     /**
      * Invokes a method whose parameter types match exactly the parameter types
      * given. Note: unsupport params is primitive types
-     * 
+     *
      * @param methodName method name
      * @param object     invoke method on this object
      * @param params     array of parameter
@@ -92,7 +92,7 @@ public final class MethodUtil {
     /**
      * Invokes a static method whose parameter types match exactly the parameter
      * types given. Note: unsupport params is primitive types
-     * 
+     *
      * @param methodName method name
      * @param clazz      invoke method on this class
      * @param params     array of parameter
@@ -107,8 +107,8 @@ public final class MethodUtil {
     /**
      * Invokes a static method whose parameter types match exactly the parameter
      * types given.
-     * 
-     * @param <T> the result type
+     *
+     * @param <T>    the result type
      * @param method method to invoke
      * @param params array of parameter
      * @return the value returned by the invoked method
@@ -119,7 +119,7 @@ public final class MethodUtil {
 
     /**
      * Invoke constructor on class
-     * 
+     *
      * @param clazz  declaring class
      * @param params array of parameters
      * @param <T>    the result type

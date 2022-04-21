@@ -8,12 +8,10 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
- * 
  * Assert actual value
- * 
- * @author tvd12
  *
  * @param <T> the value type
+ * @author tvd12
  */
 public class AssertThat<T> {
 
@@ -168,7 +166,7 @@ public class AssertThat<T> {
         acceptException(e -> {
             if (e.getClass() != expectedExceptionType) {
                 throw new AssertionError(
-                    "expected throws: " + expectedExceptionType.getName() 
+                    "expected throws: " + expectedExceptionType.getName()
                         + " but was: " + e.getClass().getName());
             }
         });

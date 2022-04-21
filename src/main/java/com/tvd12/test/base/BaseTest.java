@@ -11,9 +11,8 @@ import com.tvd12.test.reflect.ReflectMethodUtil;
 /**
  * This class support for test default constructor and calculate and print
  * elapsed time
- * 
- * @author tavandung12
  *
+ * @author tavandung12
  */
 public class BaseTest extends QuickLog {
 
@@ -38,7 +37,7 @@ public class BaseTest extends QuickLog {
     public void afterClass() {
         time = System.currentTimeMillis() - time;
         info(
-            "===== Finish test " + getClass().getSimpleName() 
+            "===== Finish test " + getClass().getSimpleName()
                 + ", Time elapsed = " + time + " ====="
         );
     }
@@ -57,7 +56,7 @@ public class BaseTest extends QuickLog {
 
     /**
      * Which class you want to test default constructor
-     * 
+     *
      * @return a class object
      */
     public Class<?> getTestClass() {

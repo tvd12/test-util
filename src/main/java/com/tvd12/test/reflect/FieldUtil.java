@@ -3,11 +3,9 @@ package com.tvd12.test.reflect;
 import java.lang.reflect.Field;
 
 /**
- * 
  * Supports for reflection field interaction
- * 
- * @author tvd12
  *
+ * @author tvd12
  */
 public final class FieldUtil {
 
@@ -15,7 +13,7 @@ public final class FieldUtil {
 
     /**
      * Get field by name
-     * 
+     *
      * @param clazz     the class contains the field
      * @param fieldName the field name
      * @return the field, null if field not found
@@ -35,7 +33,7 @@ public final class FieldUtil {
 
     /**
      * Get the field's value
-     * 
+     *
      * @param <V>       the value type
      * @param object    the object to call
      * @param fieldName the field name
@@ -47,7 +45,7 @@ public final class FieldUtil {
 
     /**
      * Get the field's value and set default value if the field's value is null
-     * 
+     *
      * @param <V>          the value type
      * @param object       the object to call
      * @param fieldName    the field name
@@ -71,7 +69,7 @@ public final class FieldUtil {
             return value;
         } catch (Exception e) {
             throw new IllegalStateException(
-                "can not get value of field: " + fieldName + " on " + object, 
+                "can not get value of field: " + fieldName + " on " + object,
                 e
             );
         }
@@ -79,7 +77,7 @@ public final class FieldUtil {
 
     /**
      * Set value to the field
-     * 
+     *
      * @param object    the object to call
      * @param fieldName the field name
      * @param value     the value to set
@@ -95,7 +93,7 @@ public final class FieldUtil {
             field.set(object, value);
         } catch (Exception e) {
             throw new IllegalStateException(
-                "can not set value: " + value + " for field: " + fieldName + " on " + object, 
+                "can not set value: " + value + " for field: " + fieldName + " on " + object,
                 e
             );
         }
@@ -103,7 +101,7 @@ public final class FieldUtil {
 
     /**
      * Get the field's value
-     * 
+     *
      * @param <V>       the value type
      * @param clazz     the class to call
      * @param fieldName the field name
@@ -115,7 +113,7 @@ public final class FieldUtil {
 
     /**
      * Get the field's value and set default value if the field's value is null
-     * 
+     *
      * @param <V>          the value type
      * @param clazz        the class to call
      * @param fieldName    the field name
@@ -138,7 +136,7 @@ public final class FieldUtil {
             return value;
         } catch (Exception e) {
             throw new IllegalStateException(
-                "can not get value of field: " + fieldName + " on " + clazz, 
+                "can not get value of field: " + fieldName + " on " + clazz,
                 e
             );
         }
@@ -146,7 +144,7 @@ public final class FieldUtil {
 
     /**
      * Set value to the field of static class
-     * 
+     *
      * @param clazz     the class to call
      * @param fieldName the field name
      * @param value     the value to set

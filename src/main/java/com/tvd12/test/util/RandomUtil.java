@@ -21,11 +21,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * 
  * Random value to test
- * 
- * @author tvd12
  *
+ * @author tvd12
  */
 @SuppressWarnings("MethodCount")
 public final class RandomUtil {
@@ -158,7 +156,7 @@ public final class RandomUtil {
     public static short randomSmallShort() {
         return randomShort((short) 0, (short) MAX_SMALL_SIZE_EXCLUSIVE);
     }
-    
+
     public static short randomShort() {
         return (short) currentRandom().nextInt(Short.MAX_VALUE);
     }
@@ -371,8 +369,8 @@ public final class RandomUtil {
     }
 
     public static <K, V> Map<K, V> randomMap(
-        int size, 
-        Supplier<K> keyRandom, 
+        int size,
+        Supplier<K> keyRandom,
         Supplier<V> valueRandom
     ) {
         Map<K, V> map = new HashMap<>();
@@ -387,12 +385,12 @@ public final class RandomUtil {
     }
 
     public static <K, V> Map<K, V> randomMap(
-        int size, 
-        Function<Random, K> keyRandom, 
+        int size,
+        Function<Random, K> keyRandom,
         Function<Random, V> valueRandom
     ) {
         return randomMap(size, () -> keyRandom.apply(currentRandom()),
-                () -> valueRandom.apply(currentRandom()));
+            () -> valueRandom.apply(currentRandom()));
     }
 
     public static Instant randomInstantBeforeNow() {
@@ -406,7 +404,7 @@ public final class RandomUtil {
     public static Instant randomInstantAfter(Instant startInclusive) {
         return randomInstant(startInclusive, MAX_INSTANT);
     }
-    
+
     public static Instant randomInstant() {
         return randomInstant(MIN_INSTANT, MAX_INSTANT);
     }
@@ -429,7 +427,7 @@ public final class RandomUtil {
     public static Date randomDateAfter(Date startInclusive) {
         return randomDate(startInclusive, MAX_DATE);
     }
-    
+
     public static Date randomDate() {
         return randomDate(MIN_DATE, MAX_DATE);
     }
@@ -456,7 +454,7 @@ public final class RandomUtil {
     public static LocalDate randomLocalDate() {
         return randomLocalDate(MIN_LOCAL_DATE, MAX_LOCAL_DATE);
     }
-    
+
     public static LocalDate randomLocalDate(LocalDate startInclusive, LocalDate endExclusive) {
         long startEpochDay = startInclusive.toEpochDay();
         long endEpochDay = endExclusive.toEpochDay();
@@ -475,7 +473,7 @@ public final class RandomUtil {
     public static LocalTime randomLocalTimeAfter(LocalTime startInclusive) {
         return randomLocalTime(startInclusive, LocalTime.MAX);
     }
-    
+
     public static LocalTime randomLocalTime() {
         return randomLocalTime(LocalTime.MIN, LocalTime.MAX);
     }
@@ -499,13 +497,13 @@ public final class RandomUtil {
     public static LocalDateTime randomLocalDateTimeAfter(LocalDateTime startInclusive) {
         return randomLocalDateTime(startInclusive, MAX_LOCAL_DATE_TIME);
     }
-    
+
     public static LocalDateTime randomLocalDateTime() {
         return randomLocalDateTime(MIN_LOCAL_DATE_TIME, MAX_LOCAL_DATE_TIME);
     }
 
     public static LocalDateTime randomLocalDateTime(
-        LocalDateTime startTime, 
+        LocalDateTime startTime,
         LocalDateTime endTime
     ) {
         long startSeconds = startTime.toEpochSecond(ZoneOffset.UTC);
@@ -513,7 +511,7 @@ public final class RandomUtil {
         long randomSeconds = currentRandom().nextLong(startSeconds, endSeconds);
         return LocalDateTime.ofEpochSecond(randomSeconds, 0, ZoneOffset.UTC);
     }
-    
+
     private static ThreadLocalRandom currentRandom() {
         return ThreadLocalRandom.current();
     }

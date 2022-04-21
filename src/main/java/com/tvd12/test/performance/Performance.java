@@ -7,9 +7,8 @@ import java.util.concurrent.Executors;
 /**
  * A builder class support for performance testing This class run a script test
  * and calculate time offset
- * 
- * @author tavandung12
  *
+ * @author tavandung12
  */
 public class Performance {
 
@@ -24,7 +23,7 @@ public class Performance {
 
     /**
      * builder method
-     * 
+     *
      * @return a Performance instance
      */
     public static Performance create() {
@@ -33,7 +32,7 @@ public class Performance {
 
     /**
      * set number of script invocations
-     * 
+     *
      * @param count number of script invocations
      * @return this pointer
      */
@@ -44,7 +43,7 @@ public class Performance {
 
     /**
      * Set number of thread use in concurrent test mode
-     * 
+     *
      * @param threadCount the number of threads
      * @return this pointer
      */
@@ -62,7 +61,7 @@ public class Performance {
 
     /**
      * execute script test and calculate offset time
-     * 
+     *
      * @param script script to test
      * @return this pointer
      */
@@ -101,5 +100,4 @@ public class Performance {
         time = System.currentTimeMillis() - startTime;
         executorService.shutdown();
     }
-
 }

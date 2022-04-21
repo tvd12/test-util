@@ -1,11 +1,9 @@
 package com.tvd12.test.reflect;
 
 /**
- * 
  * Supports for reflection class interation
- * 
- * @author tvd12
  *
+ * @author tvd12
  */
 public final class ClassUtil {
 

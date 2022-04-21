@@ -7,11 +7,9 @@ import java.util.List;
 import com.tvd12.test.util.Pair;
 
 /**
- * 
  * A builder class support to build a method invoker to invoke method
- * 
- * @author tavandung12
  *
+ * @author tavandung12
  */
 @SuppressWarnings("rawtypes")
 public class MethodInvoker {
@@ -43,7 +41,7 @@ public class MethodInvoker {
 
     /**
      * Set method name
-     * 
+     *
      * @param name method name
      * @return this pointer
      */
@@ -54,7 +52,7 @@ public class MethodInvoker {
 
     /**
      * Set method
-     * 
+     *
      * @param method method to invoke
      * @return this pointer
      */
@@ -65,7 +63,7 @@ public class MethodInvoker {
 
     /**
      * append parameters
-     * 
+     *
      * @param values the parameter values
      * @return this pointer
      */
@@ -75,10 +73,10 @@ public class MethodInvoker {
         }
         return this;
     }
-    
+
     /**
      * append parameter
-     * 
+     *
      * @param value the parameter value
      * @return this pointer
      */
@@ -90,7 +88,7 @@ public class MethodInvoker {
 
     /**
      * append parameter
-     * 
+     *
      * @param paramType the parameter type
      * @param value     the parameter value
      * @return this pointer
@@ -102,7 +100,7 @@ public class MethodInvoker {
 
     /**
      * set object to call method
-     * 
+     *
      * @param object the object to call method
      * @return this pointer
      */
@@ -113,7 +111,7 @@ public class MethodInvoker {
 
     /**
      * set static class to call method
-     * 
+     *
      * @param staticClass the static class to call method
      * @return this pointer
      */
@@ -124,7 +122,7 @@ public class MethodInvoker {
 
     /**
      * invoke method and cast returned result with type
-     * 
+     *
      * @param <T> the output type
      * @return the value returned by the invoked method
      */
@@ -135,7 +133,7 @@ public class MethodInvoker {
 
     /**
      * invoke method
-     * 
+     *
      * @return the value returned by the invoked method
      */
     public Object invoke() {
@@ -164,7 +162,7 @@ public class MethodInvoker {
 
     /**
      * invoke method and cast returned result with type
-     * 
+     *
      * @param <T>  the output type
      * @param type casting type
      * @return the value returned by the invoked method
