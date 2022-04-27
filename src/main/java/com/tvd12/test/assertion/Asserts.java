@@ -137,18 +137,18 @@ public final class Asserts {
         }
     }
 
-    public static boolean assertEquals(Object actual, Object expected) {
-        return assertEquals(actual, expected, true);
+    public static void assertEquals(Object actual, Object expected) {
+        assertEquals(actual, expected, true);
     }
 
     @SuppressWarnings("MethodLength")
-    public static boolean assertEquals(
+    public static void assertEquals(
         Object actual,
         Object expected,
         boolean mustEqualsType
     ) {
         if (expected == actual) {
-            return true;
+            return;
         }
         if (expected != null) {
             if (actual == null) {
@@ -168,7 +168,7 @@ public final class Asserts {
             }
         }
         if (expected.equals(actual)) {
-            return true;
+            return;
         }
 
         // number
@@ -179,7 +179,7 @@ public final class Asserts {
             if (expectedNumber.doubleValue() != actualNumber.doubleValue()) {
                 throw new AssertionError("expected: " + toString(expected) + " but was: " + toString(actual));
             }
-            return true;
+            return;
         }
         if (Number.class.isAssignableFrom(expectedType)) {
             throw new AssertionError(
@@ -192,7 +192,8 @@ public final class Asserts {
         }
 
         if (expectedType.isArray() && actualType.isArray()) {
-            return assertEqualsArrays(actual, expected, mustEqualsType);
+            assertEqualsArrays(actual, expected, mustEqualsType);
+            return;
         }
         if (expectedType.isArray()) {
             throw new AssertionError(
@@ -207,11 +208,12 @@ public final class Asserts {
         // collection
         if (Collection.class.isAssignableFrom(expectedType)
             && Collection.class.isAssignableFrom(actualType)) {
-            return assertEqualsCollections(new ArrayList<>(
+            assertEqualsCollections(new ArrayList<>(
                     (Collection) actual),
                 new ArrayList<>((Collection) expected),
                 mustEqualsType
             );
+            return;
         }
         if (Collection.class.isAssignableFrom(expectedType)) {
             throw new AssertionError(
@@ -225,7 +227,8 @@ public final class Asserts {
 
         // map
         if (Map.class.isAssignableFrom(expectedType) && Map.class.isAssignableFrom(actualType)) {
-            return assertEqualsMaps((Map) actual, (Map) expected, mustEqualsType);
+            assertEqualsMaps((Map) actual, (Map) expected, mustEqualsType);
+            return;
         }
         if (Map.class.isAssignableFrom(expectedType)) {
             throw new AssertionError(
@@ -240,7 +243,7 @@ public final class Asserts {
             throw new AssertionError("expected:\n" + toString(expected) + "\nbut was:\n" + toString(actual));
         }
         try {
-            return assertEqualsObjects(actual, expected, mustEqualsType);
+            assertEqualsObjects(actual, expected, mustEqualsType);
         } catch (Exception e) {
             throw new AssertionError(
                 "\nexpected:\n" + toString(expectedType, expected) +
@@ -250,7 +253,7 @@ public final class Asserts {
         }
     }
 
-    private static boolean assertEqualsArrays(
+    private static void assertEqualsArrays(
         Object actual,
         Object expected,
         boolean mustEqualsType
@@ -277,10 +280,9 @@ public final class Asserts {
                 );
             }
         }
-        return true;
     }
 
-    private static boolean assertEqualsCollections(
+    private static void assertEqualsCollections(
         List actual,
         List expected,
         boolean mustEqualsType
@@ -308,15 +310,14 @@ public final class Asserts {
                 );
             }
         }
-        return true;
     }
 
-    private static boolean assertEqualsMaps(
+    private static void assertEqualsMaps(
         Map actual,
         Map expected,
         boolean mustEqualsType
     ) {
-        return assertEqualsMaps(
+        assertEqualsMaps(
             actual.getClass(),
             expected.getClass(),
             actual,
@@ -326,7 +327,7 @@ public final class Asserts {
         );
     }
 
-    private static boolean assertEqualsMaps(
+    private static void assertEqualsMaps(
         Class<?> actualType,
         Class<?> expectedType,
         Map actual,
@@ -370,10 +371,9 @@ public final class Asserts {
                 );
             }
         }
-        return true;
     }
 
-    private static boolean assertEqualsObjects(
+    private static void assertEqualsObjects(
         Object actual,
         Object expected,
         boolean mustEqualsType
@@ -400,7 +400,7 @@ public final class Asserts {
             }
             actualType = actualType.getSuperclass();
         }
-        return assertEqualsMaps(
+        assertEqualsMaps(
             actual.getClass(),
             expected.getClass(),
             actualMap,
