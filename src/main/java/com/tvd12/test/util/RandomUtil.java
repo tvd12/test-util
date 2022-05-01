@@ -512,6 +512,15 @@ public final class RandomUtil {
         return LocalDateTime.ofEpochSecond(randomSeconds, 0, ZoneOffset.UTC);
     }
 
+    @SuppressWarnings("unchecked")
+    public static <E> E randomEnumValue(Class<?> enumClass) {
+        Object[] values = enumClass.getEnumConstants();
+        if (values.length == 0) {
+            throw new IllegalArgumentException("there is no enum value to random");
+        }
+        return (E) values[randomInt(0, values.length)];
+    }
+
     private static ThreadLocalRandom currentRandom() {
         return ThreadLocalRandom.current();
     }

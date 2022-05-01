@@ -54,7 +54,7 @@ public class RandomUtilTest extends BaseTest {
     }
 
     @Test
-    public void randomUnsupportType() {
+    public void randomUnsupportedType() {
         Asserts.assertThat(() -> RandomUtil.random(Void.class))
             .willThrows(UnsupportedOperationException.class);
     }
@@ -201,4 +201,34 @@ public class RandomUtilTest extends BaseTest {
             .test(it -> it.size() == 8);
     }
 
+    @Test
+    public void randomNoValuesEnumTest() {
+        // given
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            RandomUtil.randomEnumValue(NoValueEnums.class)
+        );
+
+        // then
+        Asserts.assertEqualsType(e, IllegalArgumentException.class);
+    }
+
+    @Test
+    public void randomEnumValueTest() {
+        // given
+        // when
+        EnumValue actual = RandomUtil.randomEnumValue(EnumValue.class);
+
+        // then
+        Asserts.assertTrue(
+            actual == EnumValue.HELLO || actual == EnumValue.WORLD
+        );
+    }
+
+    public enum NoValueEnums {}
+
+    public enum EnumValue {
+        HELLO,
+        WORLD
+    }
 }
