@@ -320,6 +320,10 @@ public final class RandomUtil {
         return array;
     }
 
+    public static <T> List<T> randomShortList(Class<T> itemType) {
+        return randomList(randomSmallInt(), itemType);
+    }
+
     public static <T> List<T> randomList(int size, Class<T> itemType) {
         List<T> list = new ArrayList<>();
         for (int i = 0; i < size; ++i) {
@@ -342,6 +346,10 @@ public final class RandomUtil {
             list.add(random.apply(currentRandom()));
         }
         return list;
+    }
+
+    public static <T> Set<T> randomShortSet(Class<T> itemType) {
+        return randomSet(randomSmallInt(), itemType);
     }
 
     public static <T> Set<T> randomSet(int size, Class<T> itemType) {

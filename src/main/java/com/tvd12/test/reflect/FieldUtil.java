@@ -1,6 +1,7 @@
 package com.tvd12.test.reflect;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 /**
  * Supports for reflection field interaction
@@ -90,6 +91,11 @@ public final class FieldUtil {
         }
         field.setAccessible(true);
         try {
+            if (Modifier.isFinal(field.getModifiers())) {
+                Field modifiersField = Field.class.getDeclaredField("modifiers");
+                modifiersField.setAccessible(true);
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            }
             field.set(object, value);
         } catch (Exception e) {
             throw new IllegalStateException(
@@ -156,6 +162,11 @@ public final class FieldUtil {
         }
         field.setAccessible(true);
         try {
+            if (Modifier.isFinal(field.getModifiers())) {
+                Field modifiersField = Field.class.getDeclaredField("modifiers");
+                modifiersField.setAccessible(true);
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            }
             field.set(null, value);
         } catch (Exception e) {
             throw new IllegalStateException(

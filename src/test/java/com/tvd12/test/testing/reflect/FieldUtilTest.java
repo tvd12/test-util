@@ -3,7 +3,10 @@ package com.tvd12.test.testing.reflect;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+import com.tvd12.test.assertion.Asserts;
+import com.tvd12.test.util.RandomUtil;
 import org.testng.annotations.Test;
 
 import com.tvd12.test.base.BaseTest;
@@ -90,9 +93,26 @@ public class FieldUtilTest extends BaseTest {
         FieldUtil.setStaticFieldValue(A1.class, "no way", "value");
     }
 
-    @Test(expectedExceptions = IllegalStateException.class)
-    public void test8() {
-        FieldUtil.setStaticFieldValue(A1.class, "value", "value");
+    @Test
+    public void setStaticFinalValue() {
+        // given
+        // when
+        FieldUtil.setStaticFieldValue(A1.class, "value", "newValue");
+
+        // then
+        assert FieldUtil.getStaticFieldValue(A1.class, "value").equals("newValue");
+    }
+
+    @Test
+    public void setStaticFinalValueFailedDueToWrongValueType() {
+        // given
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            FieldUtil.setStaticFieldValue(A1.class, "value", 0L)
+        );
+
+        // then
+        Asserts.assertEqualsType(e, IllegalStateException.class);
     }
 
     @Test
@@ -102,6 +122,38 @@ public class FieldUtilTest extends BaseTest {
         assert FieldUtil.getStaticFieldValue(A1.class, "see") == null;
     }
 
+    @Test
+    public void setFinalFieldValue() {
+        // given
+        A a = new A();
+        List<String> newValue = RandomUtil.randomShortList(String.class);
+
+        // when
+        FieldUtil.setFieldValue(a, "b", newValue);
+
+        // then
+        Asserts.assertEquals(
+            FieldUtil.getFieldValue(a, "b"),
+            newValue
+        );
+    }
+
+    @Test
+    public void setFinalFieldValueFailedDueToWrongValueType() {
+        // given
+        A a = new A();
+        Set<String> newValue = RandomUtil.randomShortSet(String.class);
+
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            FieldUtil.setFieldValue(a, "b", newValue)
+        );
+
+        // then
+        Asserts.assertEqualsType(e, IllegalStateException.class);
+    }
+
+    @SuppressWarnings("unused")
     public static class A1 {
         public static Object key;
         public static final String value = "";
@@ -110,6 +162,7 @@ public class FieldUtilTest extends BaseTest {
         public static String see;
     }
 
+    @SuppressWarnings("unused")
     public static class A {
         private List<String> a;
         private final List<String> b = new ArrayList<>();
@@ -134,6 +187,7 @@ public class FieldUtilTest extends BaseTest {
         }
     }
 
+    @SuppressWarnings("unused")
     public static class B extends A {
         public String str = "";
     }
