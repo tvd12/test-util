@@ -90,7 +90,7 @@ so, we need create a library to support them
 <dependency>
 	<groupId>com.tvd12</groupId>
 	<artifactId>test-util</artifactId>
-	<version>1.1.5</version>
+	<version>1.1.6</version>
 </dependency>
 ```
 
@@ -110,7 +110,7 @@ You need create file `AllTests.tng.xml` in your `src/test/resources` folder with
 ### Gradle
 
 ```groovy
-testImplementation 'com.tvd12:test-util:1.1.4'
+testImplementation 'com.tvd12:test-util:1.1.6'
 ```
 
 # API Reference
