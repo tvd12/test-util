@@ -521,7 +521,7 @@ public final class RandomUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static <E> E randomEnumValue(Class<?> enumClass) {
+    public static <E> E randomEnumValue(Class<E> enumClass) {
         Object[] values = enumClass.getEnumConstants();
         if (values.length == 0) {
             throw new IllegalArgumentException("there is no enum value to random");
