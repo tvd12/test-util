@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.tvd12</groupId>
 	<artifactId>test-util</artifactId>
-	<version>1.1.7</version>
+	<version>1.1.8</version>
 	<packaging>jar</packaging>
 
 	<name>test-util</name>
@@ -24,7 +24,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss</maven.build.timestamp.format>
 		<mockito.version>1.10.19</mockito.version>
-		<testng.version>7.5</testng.version>
+		<testng.version>7.5.1</testng.version>
 	</properties>
 
 	<licenses>

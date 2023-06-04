@@ -12,7 +12,7 @@ This project support for:
 
 # Documentation
 
-[https://youngmonkeys.org/project/test-util](https://youngmonkeys.org/project/test-utilities/)
+[https://youngmonkeys.org/projects/test-utilities](https://youngmonkeys.org/projects/test-utilities)
 
 # Code Example
 
